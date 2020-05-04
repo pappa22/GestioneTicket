@@ -12,10 +12,14 @@ package it.dstech.modelli;
 	@Entity
 	public class Admin {
 	  
-	    @Id
-	    private String username;
+	    private String nome;
+	    private String cognome;
 	    private String password;
+	    
+	    @Id
+	    private String mail;
 	    private boolean active;
+	    
 	    @Lob
 	    @Column(columnDefinition ="LONGBLOB NOT NULL")
 	    private String image;
@@ -23,12 +27,20 @@ package it.dstech.modelli;
 	    @OneToMany
 	    List<Applicazione> listaApplicazioni = new ArrayList<Applicazione>();
 
-		public String getUsername() {
-			return username;
+		public String getNome() {
+			return nome;
 		}
 
-		public void setUsername(String username) {
-			this.username = username;
+		public void setNome(String nome) {
+			this.nome = nome;
+		}
+
+		public String getCognome() {
+			return cognome;
+		}
+
+		public void setCognome(String cognome) {
+			this.cognome = cognome;
 		}
 
 		public String getPassword() {
@@ -37,6 +49,14 @@ package it.dstech.modelli;
 
 		public void setPassword(String password) {
 			this.password = password;
+		}
+
+		public String getMail() {
+			return mail;
+		}
+
+		public void setMail(String mail) {
+			this.mail = mail;
 		}
 
 		public boolean isActive() {
@@ -61,6 +81,9 @@ package it.dstech.modelli;
 
 		public void setListaApplicazioni(List<Applicazione> listaApplicazioni) {
 			this.listaApplicazioni = listaApplicazioni;
-		} 
+		}
+	    
+	    
+	    
 	}
 	    
