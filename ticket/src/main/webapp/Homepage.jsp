@@ -34,11 +34,11 @@
 		  			<input type="text" name="username"  placeholder="E-mail"><br>
 		  			<label for="password">Password:</label><br>
 		  			<input type="password" name="password" placeholder="Password"><br>
-					<input type="submit" class="button" name="scelta" value="Log In" />
+					<input type="submit" class="button" name="scelta" value="Login" />
 					<br>
 					<br>Non sei ancora registrato? <br>
 					<br>
-					<input type="submit" class="button" name="scelta" value="Sign In" />
+					<input type="submit" class="button" name="scelta" value="Registrazione" />
 					
 				</form>
 			</div>
