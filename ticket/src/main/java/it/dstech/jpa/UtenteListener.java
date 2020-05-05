@@ -15,6 +15,7 @@ public class UtenteListener implements ServletContextListener {
 		sce.getServletContext().setAttribute("emf", emfactory);
 	}
 
+	
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 		EntityManagerFactory emf = (EntityManagerFactory) sce.getServletContext().getAttribute("emf");
