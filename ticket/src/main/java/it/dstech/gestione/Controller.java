@@ -38,23 +38,6 @@ public class Controller {
 			return utente;
 	  }
 	  
-	  public Utente checkUtente(String mail, String password) {
-			Utente u;
-
-			Query query = em.createQuery("SELECT u FROM Utente u WHERE u.mail = :mail AND u.password= :password ",
-					Utente.class);
-			query.setParameter("mail", mail);
-			query.setParameter("password", password);
-
-			try {
-				u = (Utente) query.getSingleResult();
-				return u;
-
-			} catch (NoResultException e) {
-				return null;
-			}
-
-		}
 	  
 	  public Utente checkRegistraUtente(String mail) {
 		  Utente u;
@@ -143,10 +126,20 @@ public class Controller {
 				}
 			}return false;
 		}
+		
+		public boolean checkUtente(String email, String password) {
+			Utente utente = em.find(Utente.class, email);
+			if(utente != null) {
+				if(utente.getUsername().equals(email) && utente.getPassword().equals(password)) {
+					return true;
+				}
+			}return false;
+		}
 
 		public Admin getOggettoAdmin(String email) {
 			return em.find(Admin.class, email);
 		}
+		
 		public Utente getOggettoUtente(String email) {
 			return em.find(Utente.class, email);
 		}

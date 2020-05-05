@@ -1,9 +1,6 @@
 package it.dstech.gestione;
 
 import java.io.IOException;
-import java.sql.SQLException;
-
-import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,29 +27,27 @@ public class GestioneAccesso extends HttpServlet {
 			req.getRequestDispatcher("Registrazione.jsp").forward(req, resp);
 		}
 		if (scelta.equalsIgnoreCase("Login")) {
-			Utente ut = gestione.checkUtente(mail, pass);
-			
-			if (ut == null) {
-				req.setAttribute("mess", "mail o password errata. Riprova oppure REGISTRATI");
-				req.getRequestDispatcher("login.jsp").forward(req, resp);
-			} 
-			else if(gestione.checkAdmin(mail, pass)) {
+			if(gestione.checkAdmin(mail, pass)) {
 				Admin admin = gestione.getOggettoAdmin(mail);
-				if(admin.isActive()) {
-				session.setAttribute("admin", admin);
-				req.getRequestDispatcher("/ProfiloAdmin.jsp").forward(req, resp);
-				}
-			} else {
+			    if(admin.isActive()) {
+			    	session.setAttribute("admin", admin);
+			    	req.getRequestDispatcher("/ProfiloAdmin.jsp").forward(req, resp);
+			} else if (gestione.checkUtente(mail, pass)) {
+				Utente ut= gestione.getOggettoUtente(mail);
 				if (!ut.isActive()) {
 					req.setAttribute("mess", "utente non attivato, cliccare il link nella mail ricevuta");
 					gestione.close();
-					req.getRequestDispatcher("login.jsp").forward(req, resp);
+					req.getRequestDispatcher("Homepage.jsp").forward(req, resp);
 				} else {
 					session.setAttribute("utente", ut);
 					req.getRequestDispatcher("/cliente/opzioniCliente.jsp").forward(req, resp);
 				}
+			} else {
+				req.setAttribute("mess", "L'e-mail o password errata. Riprova oppure REGISTRATI");
+				req.getRequestDispatcher("Homepage.jsp").forward(req, resp);
 			}
-
+				
+			}
 		}
 	}
 }

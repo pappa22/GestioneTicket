@@ -15,7 +15,7 @@
 	<body>
 	<div class="center" >
 	
-	<% String messaggio = (String) request.getAttribute("messaggio"); 
+	<% String messaggio = (String) request.getAttribute("mess"); 
 		if (messaggio != null ){  %>
 			<h1 style="color:red;"><%=messaggio%></h1>
 		
@@ -31,7 +31,7 @@
 				<form action= "Accesso" method="post">
 
 					<label for="username">Username:</label><br>
-		  			<input type="text" required="required" name="username"  placeholder="E-mail"><br>
+		  			<input type="text" required="required" name="mail"  placeholder="E-mail"><br>
 		  			<label for="password">Password:</label><br>
 		  			<input type="password" required="required" name="password" placeholder="Password"><br>
 					<input type="submit" class="button" name="scelta" value="Login" />
