@@ -9,12 +9,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import javax.servlet.http.Part;
-
 import it.dstech.modelli.Admin;
 import it.dstech.modelli.Utente;
 
@@ -27,10 +22,12 @@ public class Controller {
 		    em.close();
 		  }
 	  
-	  public boolean attivazioneUtente(Utente u) {
+	  public void attivazioneUtente(Utente u) {
 		  Query query = em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1, u.getUsername());
 		  Utente utente = (Utente) query.getSingleResult();
-		  return utente.isActive();
+		  em.getTransaction().begin();
+		  utente.setActive(true);
+		  em.getTransaction().commit();      
 	  }
 	  
 	  public Utente getUtente(String nome) {
@@ -41,7 +38,7 @@ public class Controller {
 	  public Utente checkUtente(String mail, String password) {
 			Utente u;
 
-			Query query = em.createQuery("SELECT u FROM Utente u WHERE u.mail = :mail AND u.password= :password ",
+			Query query = em.createQuery("SELECT u FROM Utente u WHERE u.username = :mail AND u.password= :password ",
 					Utente.class);
 			query.setParameter("mail", mail);
 			query.setParameter("password", password);
@@ -117,6 +114,8 @@ public class Controller {
 			em.getTransaction().commit();
 
 		}
+		
+		
 		public Admin checkRegistraAdmin(String mail) {
 			 Admin a;
 

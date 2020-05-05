@@ -15,7 +15,7 @@
 	<body>
 	<div class="center" >
 	
-	<% String messaggio = (String) request.getAttribute("messaggio"); 
+	<% String messaggio = (String) request.getAttribute("mess"); 
 		if (messaggio != null ){  %>
 			<h1 style="color:red;"><%=messaggio%></h1>
 		
