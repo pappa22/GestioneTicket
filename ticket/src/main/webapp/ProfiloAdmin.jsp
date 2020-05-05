@@ -23,7 +23,7 @@
 %>
       <h1>Benvenuto Amministratore</h1>
 
-      <br>Qui puoi inserire o rimuovere gli eroi che gli utenti potranno aggiungere nel tracker.<br>
+      <br>Qui puoi gestire le tue applicazioni e i ticket<br>
 
 <br>
 

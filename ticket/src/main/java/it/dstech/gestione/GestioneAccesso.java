@@ -32,7 +32,12 @@ public class GestioneAccesso extends HttpServlet {
 			    if(admin.isActive()) {
 			    	session.setAttribute("admin", admin);
 			    	req.getRequestDispatcher("/ProfiloAdmin.jsp").forward(req, resp);
-			} else if (gestione.checkUtente(mail, pass)) {
+			}else {			
+					req.setAttribute("mess", "admin non attivato, cliccare il link nella mail ricevuta");
+					gestione.close();
+					req.getRequestDispatcher("Homepage.jsp").forward(req, resp);				
+			} 
+			}else if (gestione.checkUtente(mail, pass)) {
 				Utente ut= gestione.getOggettoUtente(mail);
 				if (!ut.isActive()) {
 					req.setAttribute("mess", "utente non attivato, cliccare il link nella mail ricevuta");
@@ -49,5 +54,5 @@ public class GestioneAccesso extends HttpServlet {
 				
 			}
 		}
+	
 	}
-}

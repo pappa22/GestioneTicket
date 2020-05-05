@@ -3,6 +3,7 @@ package it.dstech.gestione;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,6 +17,7 @@ import javax.persistence.criteria.Root;
 import javax.servlet.http.Part;
 
 import it.dstech.modelli.Admin;
+import it.dstech.modelli.Applicazione;
 import it.dstech.modelli.Utente;
 
 public class Controller {
@@ -142,6 +144,21 @@ public class Controller {
 		
 		public Utente getOggettoUtente(String email) {
 			return em.find(Utente.class, email);
+		}
+
+		public List<Applicazione> getListaApplicazioni(Admin admin) {
+			Admin find = em.find(Admin.class, admin.getMail());
+			return find.getListaApplicazioni();
+		}
+		
+		public void aggiungiApplicazione(String nome, String descrizione, Admin admin) {
+			Applicazione applicazione = new Applicazione();
+			applicazione.setNome(nome);
+			applicazione.setDescrizione(descrizione);
+			applicazione.setAdmin(admin);
+			em.getTransaction().begin();
+			em.persist(applicazione);
+			em.getTransaction().commit();
 		}
 
 }
