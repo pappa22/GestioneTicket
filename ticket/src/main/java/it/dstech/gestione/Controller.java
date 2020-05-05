@@ -134,5 +134,21 @@ public class Controller {
 				}
 
 			}
+		
+		public boolean checkAdmin(String email, String password) {
+			Admin admin = em.find(Admin.class, email);
+			if(admin != null) {
+				if(admin.getMail().equals(email) && admin.getPassword().equals(password)) {
+					return true;
+				}
+			}return false;
+		}
+
+		public Admin getOggettoAdmin(String email) {
+			return em.find(Admin.class, email);
+		}
+		public Utente getOggettoUtente(String email) {
+			return em.find(Utente.class, email);
+		}
 
 }
