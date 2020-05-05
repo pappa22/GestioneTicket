@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
@@ -23,7 +24,7 @@ public class Utente {
     @Column(columnDefinition ="LONGBLOB NOT NULL")
     private String image;
       
-    @OneToMany
+    @OneToMany(mappedBy = "utente")
     List<Ticket> listaTicket = new ArrayList<Ticket>();
     
     

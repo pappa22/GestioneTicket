@@ -24,7 +24,7 @@ package it.dstech.modelli;
 	    @Column(columnDefinition ="LONGBLOB NOT NULL")
 	    private String image;
 	      
-	    @OneToMany
+	    @OneToMany(mappedBy = "admin")
 	    List<Applicazione> listaApplicazioni = new ArrayList<Applicazione>();
 
 		public String getNome() {

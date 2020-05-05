@@ -30,7 +30,7 @@ public class GestioneAccesso extends HttpServlet{
 		
 		
 		if(scelta.equalsIgnoreCase("Registrazione")) {
-			req.getRequestDispatcher("registrazione.jsp").forward(req, resp);
+			req.getRequestDispatcher("Registrazione.jsp").forward(req, resp);
 			
 		}
 		

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -15,9 +16,11 @@ public class Applicazione {
 	private String descrizione;
 	
     @OneToOne
+    @JoinColumn(name="admin")
     private Admin admin;
     
     @OneToMany
+    @JoinColumn(name="ticket")
     List<Ticket> listaTicket = new ArrayList<Ticket>();
     
 

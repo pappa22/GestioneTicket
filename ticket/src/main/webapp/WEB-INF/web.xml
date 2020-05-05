@@ -4,24 +4,25 @@
          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">	
 	
-	<filter>
-    	<filter-name>filtroUtente</filter-name>
-    	<filter-class>it.dstech.filtri.FiltroUtente</filter-class>
-	</filter>
-	<filter-mapping>
-    	<filter-name>filtroUtente</filter-name>
-    	<url-pattern>/utente/*</url-pattern>
-	</filter-mapping>
+<!-- 	<filter> -->
+<!--     	<filter-name>filtroUtente</filter-name> -->
+<!--     	<filter-class>it.dstech.filtri.FiltroUtente</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!--     	<filter-name>filtroUtente</filter-name> -->
+<!--     	<url-pattern>/utente/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
 
 
-	<filter>
-   	 	<filter-name>filtroAdmin</filter-name>
-    	<filter-class>it.dstech.filtri.FiltroAdmin</filter-class>
-	</filter>
-	<filter-mapping>
-    	<filter-name>filtroAdmin</filter-name>
-   		<url-pattern>/admin/*</url-pattern>
-	</filter-mapping>
+<!-- 	<filter> -->
+<!--    	 	<filter-name>filtroAdmin</filter-name> -->
+<!--     	<filter-class>it.dstech.filtri.FiltroAdmin</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!--     	<filter-name>filtroAdmin</filter-name> -->
+<!--    		<url-pattern>/admin/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
+
 
 	<welcome-file-list>
 		<welcome-file>/Homepage.jsp</welcome-file>

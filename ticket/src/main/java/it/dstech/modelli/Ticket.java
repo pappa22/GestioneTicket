@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -21,11 +23,15 @@ public class Ticket {
     private Timestamp data;
 	
     @OneToOne
+    @JoinColumn(name="utente")
     private Utente utente;
     
     @OneToOne
+    @JoinColumn(name="applicazione")
     private Applicazione applicazione;
 
+    
+    
 	public String getNome() {
 		return nome;
 	}

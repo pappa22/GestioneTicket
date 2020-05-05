@@ -9,14 +9,12 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<properties>
 			<property name="hibernate.connection.url"
-				value="jdbc:mysql://localhost:3306/battleground?useUnicode=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;createDatabaseIfNotExist=true&amp;allowPublicKeyRetrieval=true&amp;useSSL=false" />
+				value="jdbc:mysql://localhost:3306/ticket?useUnicode=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;createDatabaseIfNotExist=true&amp;allowPublicKeyRetrieval=true&amp;useSSL=false" />
 			<property name="hibernate.connection.driver_class"
 				value="com.mysql.cj.jdbc.Driver" />
 			<property name="hibernate.connection.username" value="root" />
-			<property name="hibernate.connection.password"
-				value="Pirandello1@" />
-			<property name="hibernate.archive.autodetection"
-				value="class" />
+			<property name="hibernate.connection.password" value="Pirandello1@" />
+			<property name="hibernate.archive.autodetection" value="class" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
