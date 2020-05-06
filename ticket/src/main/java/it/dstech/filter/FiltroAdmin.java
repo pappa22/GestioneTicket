@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import it.dstech.modelli.Admin;
 
-@WebFilter(filterName = "filtroAdmin", urlPatterns = "/admin/*")
+@WebFilter(filterName = "filtroAdmin", urlPatterns = "/Admin/*")
 public class FiltroAdmin implements Filter{
 
 	@Override
@@ -29,13 +29,13 @@ public class FiltroAdmin implements Filter{
 		System.out.println("Sono nel filtro admin");
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession sessione = ((HttpServletRequest) request).getSession();
-		Admin admin = (Admin) sessione.getAttribute("username");
+		Admin admin = (Admin) sessione.getAttribute("admin");
 		if(admin != null) {
 			System.out.println("sessione esistente");
 			chain.doFilter(request, response);
 		}else {
 			System.out.println("sessione insesistente");
-			resp.sendRedirect("/battleground-tracker/homepage.jsp");
+			resp.sendRedirect("/ticket/Homepage.jsp");
 		}
 	}
 

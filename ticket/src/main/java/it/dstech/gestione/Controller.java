@@ -11,9 +11,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import javax.servlet.http.Part;
 
 import it.dstech.modelli.Admin;
@@ -150,6 +147,7 @@ public class Controller {
 			Admin find = em.find(Admin.class, admin.getMail());
 			return find.getListaApplicazioni();
 		}
+		
 		
 		public void aggiungiApplicazione(String nome, String descrizione, Admin admin) {
 			Applicazione applicazione = new Applicazione();

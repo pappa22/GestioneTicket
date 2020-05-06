@@ -31,7 +31,7 @@
 				<form action= "Accesso" method="post">
 
 					<label for="username">Username:</label><br>
-		  			<input type="text" required="required" name="mail"  placeholder="E-mail"><br>
+		  			<input type="email" required="required" name="mail"  placeholder="E-mail"><br>
 		  			<label for="password">Password:</label><br>
 		  			<input type="password" required="required" name="password" placeholder="Password"><br>
 					<input type="submit" class="button" name="scelta" value="Login" />

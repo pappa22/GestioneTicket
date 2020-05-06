@@ -31,7 +31,7 @@ public class GestioneAccesso extends HttpServlet {
 				Admin admin = gestione.getOggettoAdmin(mail);
 			    if(admin.isActive()) {
 			    	session.setAttribute("admin", admin);
-			    	req.getRequestDispatcher("/ProfiloAdmin.jsp").forward(req, resp);
+			    	req.getRequestDispatcher("/Admin/ProfiloAdmin.jsp").forward(req, resp);
 			}else {			
 					req.setAttribute("mess", "admin non attivato, cliccare il link nella mail ricevuta");
 					gestione.close();

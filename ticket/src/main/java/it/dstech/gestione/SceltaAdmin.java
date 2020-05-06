@@ -13,7 +13,7 @@ import org.hibernate.Session;
 
 import it.dstech.modelli.Admin;
 
-@WebServlet(urlPatterns = "/SceltaAdmin")
+@WebServlet(urlPatterns = "/Admin/SceltaAdmin")
 public class SceltaAdmin extends HttpServlet {
 
 	@Override
@@ -21,7 +21,6 @@ public class SceltaAdmin extends HttpServlet {
 		req.setAttribute("messaggio", "Pagina non accessibile");
 		req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
 	}
-
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Controller gestione = new Controller();
@@ -30,11 +29,11 @@ public class SceltaAdmin extends HttpServlet {
 		if (scelta.equalsIgnoreCase("Aggiungi Applicazione")) {
 			Admin admin = (Admin) session.getAttribute("admin");
 			req.setAttribute("listaApplicazioni", gestione.getListaApplicazioni(admin));
-			req.getRequestDispatcher("AggiungiApplicazione.jsp").forward(req, resp);
+			req.getRequestDispatcher("/Admin/AggiuntaApplicazione.jsp").forward(req, resp);
 		} else if (scelta.equalsIgnoreCase("Gestione Applicazione")) {
-			req.getRequestDispatcher("GestioneApplicazione.jsp").forward(req, resp);
+			req.getRequestDispatcher("/Admin/GestioneApplicazione.jsp").forward(req, resp);
 		} else if (scelta.equalsIgnoreCase("Gestione Ticket")) {
-			req.getRequestDispatcher("GestioneTicket.jsp").forward(req, resp);
+			req.getRequestDispatcher("/Admin/GestioneTicket.jsp").forward(req, resp);
 		}
 	}
 
