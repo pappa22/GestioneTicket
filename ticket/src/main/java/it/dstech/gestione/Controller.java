@@ -148,6 +148,12 @@ public class Controller {
 			return find.getListaApplicazioni();
 		}
 		
+		public List<Applicazione> stampaListaApplicazioni(Admin admin) {
+			TypedQuery<Applicazione> query = em.createQuery("select a from Applicazione a where a.admin = ?1",
+					Applicazione.class);
+			query.setParameter(1, admin);
+			return query.getResultList();
+		}
 		
 		public void aggiungiApplicazione(String nome, String descrizione, Admin admin) {
 			Applicazione applicazione = new Applicazione();
@@ -157,6 +163,12 @@ public class Controller {
 			em.getTransaction().begin();
 			em.persist(applicazione);
 			em.getTransaction().commit();
+		}
+		public boolean checkEsistenzaApplicazione(String nome) {
+			Applicazione find = em.find(Applicazione.class, nome);
+			if(find != null) {
+				return true;
+			}return false;
 		}
 
 }

@@ -25,8 +25,11 @@ public class AggiuntaApplicazione extends HttpServlet {
 		Admin admin = (Admin) session.getAttribute("admin");
 		String nome = req.getParameter("nome");
 		String descrizione = req.getParameter("descrizione");
+		if(!gestione.checkEsistenzaApplicazione(nome)) {
 		gestione.aggiungiApplicazione(nome, descrizione, admin);
-		req.setAttribute("listaApplicazioni", gestione.getListaApplicazioni(admin));
+		req.setAttribute("mess", "Applicazione esistente");
+		}
+		req.setAttribute("listaApplicazioni", gestione.stampaListaApplicazioni(admin));
 		req.getRequestDispatcher("/Admin/AggiuntaApplicazione.jsp").forward(req, resp);
 	}
 

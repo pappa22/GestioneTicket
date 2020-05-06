@@ -13,11 +13,7 @@
 </head>
 <body>
 
-<% String path = request.getContextPath(); 
-	Controller gestione = new Controller();
-	Admin admin = (Admin) session.getAttribute("admin");
-	List<Applicazione> listaApplicazioni = (List<Applicazione>) request.getAttribute("listaApplicazioni");
-%>
+<% String path = request.getContextPath(); %>
 <form action="<%=path%>/Admin/AggiuntaApplicazione" method="post">
 		<input type="text" name="nome" placeholder="Nome"> <br> 
 		
@@ -37,18 +33,13 @@
 				<th>Descrizione</th>
 			</tr>
 		</thead>
-		<% for(Applicazione app : listaApplicazioni){ %>
-<%-- 		<c:forEach items="${gestione.getListaApplicazioni(admin)}" var="lista"> --%>
+		<c:forEach items="${listaApplicazioni}" var="lista"> 
 			<tbody>
 				<tr>
-				<td><%=app.getNome()%></td>
-				<td><%=app.getDescrizione() %></td>
-<%-- 					<td><c:out value="${lista.getNome()}" /></td> --%>
-<%-- 					<td><c:out value="${lista.getDescrizione()}" /></td> --%>
+					<td><c:out value="${lista.getNome()}" /></td> 
+ 					<td><c:out value="${lista.getDescrizione()}" /></td>
 				</tr>
-				<%} %>
-				
-<%-- 		</c:forEach> --%>
+		</c:forEach> 
 		</tbody>
 	</table>
 	<hr>

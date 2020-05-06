@@ -28,7 +28,7 @@ public class SceltaAdmin extends HttpServlet {
 		HttpSession session = (HttpSession) req.getSession();
 		if (scelta.equalsIgnoreCase("Aggiungi Applicazione")) {
 			Admin admin = (Admin) session.getAttribute("admin");
-			req.setAttribute("listaApplicazioni", gestione.getListaApplicazioni(admin));
+			req.setAttribute("listaApplicazioni", gestione.stampaListaApplicazioni(admin));
 			req.getRequestDispatcher("/Admin/AggiuntaApplicazione.jsp").forward(req, resp);
 		} else if (scelta.equalsIgnoreCase("Gestione Applicazione")) {
 			req.getRequestDispatcher("/Admin/GestioneApplicazione.jsp").forward(req, resp);
