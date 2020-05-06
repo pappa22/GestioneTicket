@@ -162,6 +162,15 @@ public class Controller {
 			return query.getResultList();
 		}
 		
+		public List<Applicazione> stampaTutteLeApplicazioni() {
+			TypedQuery<Applicazione> query = em.createQuery("select a from Applicazione a",
+					Applicazione.class);
+			
+			return query.getResultList();
+		}
+		
+		
+		
 		public void aggiungiApplicazione(String nome, String descrizione, Admin admin) {
 			Applicazione applicazione = new Applicazione();
 			applicazione.setNome(nome);

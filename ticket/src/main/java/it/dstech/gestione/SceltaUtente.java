@@ -25,15 +25,27 @@ public class SceltaUtente extends HttpServlet {
 		Controller gestione = new Controller();
 		String scelta = req.getParameter("azione");
 		HttpSession session = (HttpSession) req.getSession();
-		if (scelta.equalsIgnoreCase("Crea Ticket")) {
-			Admin admin = (Admin) session.getAttribute("admin");
-			req.setAttribute("listaApplicazioni", gestione.stampaListaApplicazioni(admin));
-			req.getRequestDispatcher("/Utente/CreaTicket.jsp").forward(req, resp);
-		} else if (scelta.equalsIgnoreCase("Torna Indietro")) {
-			req.getRequestDispatcher("/Utente/opzioniUtente.jsp").forward(req, resp);
-		} else if (scelta.equalsIgnoreCase("Gestione Ticket")) {
+		
+		if (scelta.equalsIgnoreCase("Lista Applicazioni")) {
+			
+			req.setAttribute("listaApplicazioni", gestione.stampaTutteLeApplicazioni());
+			req.getRequestDispatcher("/Utente/ListaApplicazioni.jsp").forward(req, resp);
+		} 
+		
+//		else if (scelta.equalsIgnoreCase("Torna Indietro")) {
+//			//req.getRequestDispatcher("/Utente/opzioniUtente.jsp").forward(req, resp);
+//			resp.sendRedirect(req.getContextPath() + "/Utente/opzioniUtente.jsp");
+//		} 
+		
+		else if (scelta.equalsIgnoreCase("Gestione Ticket")) {
 			req.getRequestDispatcher("/Utente/GestioneTicket.jsp").forward(req, resp);
-		} else if (scelta.equalsIgnoreCase("Log out")) {
+		} 
+		
+		else if (scelta.equalsIgnoreCase("Ticket")) {
+			req.getRequestDispatcher("/Utente/GestioneTicket.jsp").forward(req, resp);
+		} 
+		
+		else if (scelta.equalsIgnoreCase("Log out")) {
 			session.invalidate();
 			resp.sendRedirect(req.getContextPath() + "/");
 		}

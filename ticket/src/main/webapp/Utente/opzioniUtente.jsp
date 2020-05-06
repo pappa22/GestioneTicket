@@ -1,3 +1,4 @@
+<%@page import="it.dstech.modelli.Utente"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -13,7 +14,9 @@
 <div class="center">
 
 
-    <% String messaggio = (String) request.getAttribute("mess"); 
+    <% String messaggio = (String) request.getAttribute("mess");
+    	Utente u = (Utente) session.getAttribute("utente");
+    
   if (messaggio != null ){
     %>
     <h1 style="color:Tomato;">ERRORE</h1>
@@ -21,7 +24,8 @@
     <% }
   else {
 %>
-      <h1>Benvenuto Utente</h1>
+
+      <h1>Benvenuto Utente <%=u.getUsername()%></h1>
 
       <br>Qui puoi recensire delle nostre applicazioni.<br>
 
@@ -29,7 +33,7 @@
 
 
     <form action="Utente/SceltaUtente" method="post">
-      <input type="submit"  class = "button" name ="azione" value="Crea Ticket" /> <br><br>
+      <input type="submit"  class = "button" name ="azione" value="Lista Applicazioni" /> <br><br>
       <input type="submit"  class = "button" name ="azione" value="Gestione Ticket" /> <br><br>
       <input type="submit"  class = "button" name ="azione" value="Log Out" /> <br><br>
       
