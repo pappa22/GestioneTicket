@@ -13,11 +13,10 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import it.dstech.modelli.Utente;
 
-import it.dstech.modelli.Admin;
-
-@WebFilter(filterName = "filtroAdmin", urlPatterns = "/admin/*")
-public class FiltroAdmin implements Filter{
+@WebFilter(filterName = "filtroUtente", urlPatterns = "/utente/*")
+public class FiltroUtente implements Filter{
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -26,11 +25,11 @@ public class FiltroAdmin implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		System.out.println("Sono nel filtro admin");
+		System.out.println("Sono nel filtro utente");
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession sessione = ((HttpServletRequest) request).getSession();
-		Admin admin = (Admin) sessione.getAttribute("admin");
-		if(admin != null) {
+		Utente utente = (Utente) sessione.getAttribute("utente");
+		if(utente != null) {
 			System.out.println("sessione esistente");
 			chain.doFilter(request, response);
 		}else {

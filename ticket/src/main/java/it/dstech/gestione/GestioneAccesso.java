@@ -40,7 +40,7 @@ public class GestioneAccesso extends HttpServlet {
           req.getRequestDispatcher("Homepage.jsp").forward(req, resp);
         } else {
           session.setAttribute("utente", ut);
-          req.getRequestDispatcher("/cliente/opzioniCliente.jsp").forward(req, resp);
+          req.getRequestDispatcher("/utente/opzioniCliente.jsp").forward(req, resp);
         }
       } else {
         req.setAttribute("mess", "L'e-mail o password errata. Riprova oppure REGISTRATI");
