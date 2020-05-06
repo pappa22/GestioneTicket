@@ -27,32 +27,32 @@ public class GestioneAccesso extends HttpServlet {
 			req.getRequestDispatcher("Registrazione.jsp").forward(req, resp);
 		}
 		if (scelta.equalsIgnoreCase("Login")) {
-			if(gestione.checkAdmin(mail, pass)) {
+			if (gestione.checkAdmin(mail, pass)) {
 				Admin admin = gestione.getOggettoAdmin(mail);
-			    if(admin.isActive()) {
-			    	session.setAttribute("admin", admin);
-			    	req.getRequestDispatcher("/Admin/ProfiloAdmin.jsp").forward(req, resp);
-			}else {			
+				if (admin.isActive()) {
+					session.setAttribute("admin", admin);
+					req.getRequestDispatcher("/Admin/ProfiloAdmin.jsp").forward(req, resp);
+				} else {
 					req.setAttribute("mess", "admin non attivato, cliccare il link nella mail ricevuta");
 					gestione.close();
-					req.getRequestDispatcher("Homepage.jsp").forward(req, resp);				
-			} 
-			}else if (gestione.checkUtente(mail, pass)) {
-				Utente ut= gestione.getOggettoUtente(mail);
+					req.getRequestDispatcher("Homepage.jsp").forward(req, resp);
+				}
+			} else if (gestione.checkUtente(mail, pass)) {
+				Utente ut = gestione.getOggettoUtente(mail);
 				if (!ut.isActive()) {
 					req.setAttribute("mess", "utente non attivato, cliccare il link nella mail ricevuta");
 					gestione.close();
 					req.getRequestDispatcher("Homepage.jsp").forward(req, resp);
 				} else {
 					session.setAttribute("utente", ut);
-					req.getRequestDispatcher("/cliente/opzioniCliente.jsp").forward(req, resp);
+					req.getRequestDispatcher("/utente/opzioniCliente.jsp").forward(req, resp);
 				}
 			} else {
 				req.setAttribute("mess", "L'e-mail o password errata. Riprova oppure REGISTRATI");
 				req.getRequestDispatcher("Homepage.jsp").forward(req, resp);
 			}
-				
-			}
+
 		}
-	
 	}
+
+}

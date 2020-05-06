@@ -7,12 +7,10 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.servlet.http.Part;
-
 import it.dstech.modelli.Admin;
 import it.dstech.modelli.Applicazione;
 import it.dstech.modelli.Utente;
@@ -26,33 +24,49 @@ public class Controller {
 		    em.close();
 		  }
 	  
-	  public boolean attivazioneUtente(Utente u) {
+	  public void attivazioneUtente(Utente u) {
 		  Query query = em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1, u.getUsername());
 		  Utente utente = (Utente) query.getSingleResult();
-		  return utente.isActive();
+		  em.getTransaction().begin();
+		  utente.setActive(true);
+		  em.getTransaction().commit();      
 	  }
+	  
+	  public boolean controlloUtente(Utente u) {
+		    String username = u.getUsername();
+		    List<Utente> listaUtenti  =  em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1,username).getResultList();    
+		    for(Utente utente: listaUtenti) {
+		      if (utente.getUsername().equalsIgnoreCase(u.getUsername())){
+		        return true;
+		      }
+		    }
+		    return false;
+		  }
+	  
+	  public void attivazioneAdmin(Admin a) {
+		  Query query = em.createQuery("SELECT u FROM Admin u WHERE u.mail = ?1", Admin.class).setParameter(1, a.getMail());
+		  Admin admin = (Admin) query.getSingleResult();
+		  em.getTransaction().begin();
+		  admin.setActive(true);
+		  em.getTransaction().commit();      
+	  }
+	  
 	  
 	  public Utente getUtente(String nome) {
 		    Utente utente  =   em.createQuery("SELECT e FROM Utente e WHERE e.username = ?1", Utente.class).setParameter(1,nome).getSingleResult();       
 			return utente;
 	  }
 	  
+
+	 
 	  
-	  public Utente checkRegistraUtente(String mail) {
-		  Utente u;
-
-			Query query = em.createQuery("SELECT u FROM Utente u WHERE u.username = :username",
-					Utente.class);
-			query.setParameter("username", mail);
-			
-
-			try {
-				u = (Utente) query.getSingleResult();
-				return u;
-
-			} catch (NoResultException e) {
-				return null;
-			}
+	  public boolean checkRegistraUtente(String mail) {
+		  Utente utente = em.find(Utente.class, mail);
+			if(utente != null) {
+				if(utente.getUsername().equals(mail)) {
+					return true;
+				}
+			}return false;
 
 		}
 	  
@@ -99,22 +113,15 @@ public class Controller {
 			em.getTransaction().commit();
 
 		}
-		public Admin checkRegistraAdmin(String mail) {
-			 Admin a;
-
-				Query query = em.createQuery("SELECT a FROM Admin a WHERE a.mail = :mail",
-						Admin.class);
-				query.setParameter("mail", mail);
-				
-
-				try {
-					a = (Admin) query.getSingleResult();
-					return a;
-
-				} catch (NoResultException e) {
-					return null;
+		
+		
+		public boolean checkRegistraAdmin(String mail) {
+			Admin admin = em.find(Admin.class, mail);
+			if(admin != null) {
+				if(admin.getMail().equals(mail) ) {
+					return true;
 				}
-
+			}return false;
 			}
 		
 		public boolean checkAdmin(String email, String password) {

@@ -56,7 +56,7 @@
  <br>
  	<input type="radio" name= "tipo" value="admin">Admin
  	<br>
- 	<input type="radio" name= "tipo" value="utente"/>Utente
+ 	<input type="radio"  name= "tipo" value="utente"/>Utente
 		<br><br>
 		<input type="submit" class="btn btn-warning btn-block"
 			style="width: 150px; height: 45px; margin: auto" name="azione"
