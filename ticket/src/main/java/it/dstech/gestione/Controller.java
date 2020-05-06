@@ -162,6 +162,15 @@ public class Controller {
 			return query.getResultList();
 		}
 		
+		public void rimuoviApplicazione(String nomeApp, Admin admin) {
+			Query query = em.createQuery("DELETE Applicazione WHERE nome = ?1 and admin=?2").setParameter(1, nomeApp).setParameter(2, admin);
+			em.getTransaction().begin();
+			int result = query.executeUpdate();
+			if(result!=0) {
+				em.getTransaction().commit();	     
+			}
+		}
+		
 		public void aggiungiApplicazione(String nome, String descrizione, Admin admin) {
 			Applicazione applicazione = new Applicazione();
 			applicazione.setNome(nome);
@@ -176,6 +185,10 @@ public class Controller {
 			if(find != null) {
 				return true;
 			}return false;
+		}
+
+		public Applicazione getApplicazione(String nomeApp) {
+			return em.find(Applicazione.class, nomeApp);
 		}
 
 }

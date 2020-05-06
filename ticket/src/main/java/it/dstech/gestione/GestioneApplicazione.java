@@ -8,14 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.hibernate.Session;
-
 import it.dstech.modelli.Admin;
+import it.dstech.modelli.Applicazione;
 
-@WebServlet(urlPatterns = "/Admin/SceltaAdmin")
-public class SceltaAdmin extends HttpServlet {
 
+@WebServlet(urlPatterns = "/Admin/GestioneApplicazione")
+public class GestioneApplicazione extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("messaggio", "Pagina non accessibile");
@@ -24,21 +24,23 @@ public class SceltaAdmin extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Controller gestione = new Controller();
-		String scelta = req.getParameter("azione");
+		String azione = req.getParameter("azione");
+		String app = req.getParameter("applicazione");
 		HttpSession session = (HttpSession) req.getSession();
 		Admin admin = (Admin) session.getAttribute("admin");
-		
-		if(scelta == null) {
-			req.getRequestDispatcher("/Admin/ProfiloAdmin.jsp").forward(req, resp);
-		} else if (scelta.equalsIgnoreCase("Aggiungi Applicazione")) {
+		Applicazione applicazione = gestione.getApplicazione(app);
+		 
+		if(azione == null) {
+			req.getRequestDispatcher("/Admin/GestioneApplicazione.jsp").forward(req, resp);
+		} else if (azione.equalsIgnoreCase("Modifica")) {
 			req.setAttribute("listaApplicazioni", gestione.stampaListaApplicazioni(admin));
-			req.getRequestDispatcher("/Admin/AggiuntaApplicazione.jsp").forward(req, resp);
-		} else if (scelta.equalsIgnoreCase("Gestione Applicazione")) {
+			req.setAttribute("applicazione", applicazione);
+			req.getRequestDispatcher("/Admin/ModificaApplicazione.jsp").forward(req, resp);
+		} else if (azione.equalsIgnoreCase("Rimuovi")) {
+			gestione.rimuoviApplicazione(app, admin);
+			req.setAttribute("messApp", "Applicazione rimossa");
 			req.setAttribute("listaApplicazioni", gestione.stampaListaApplicazioni(admin));
 			req.getRequestDispatcher("/Admin/GestioneApplicazione.jsp").forward(req, resp);
-		} else if (scelta.equalsIgnoreCase("Gestione Ticket")) {
-			req.setAttribute("listaApplicazioni", gestione.stampaListaApplicazioni(admin));
-			req.getRequestDispatcher("/Admin/GestioneTicket.jsp").forward(req, resp);
-		}
+		} 
 	}
 }

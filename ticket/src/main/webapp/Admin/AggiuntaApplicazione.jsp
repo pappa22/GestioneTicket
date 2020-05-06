@@ -22,8 +22,8 @@
 		<button type="submit" class="pulsante">Aggiungi</button>
 		<br>
 	</form>
-	<form action="/Admin/SceltaAdmin" method="post">
-		<input type="submit" name="Home">
+	<form action="<%=path%>/Admin/SceltaAdmin" method="post">
+		<input type="submit" name="Home" value="Torna Indietro">
 	</form>
 	<hr>
 	<table>
