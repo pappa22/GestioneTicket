@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import it.dstech.modelli.Utente;
 
-@WebFilter(filterName = "filtroUtente", urlPatterns = "/utente/*")
+@WebFilter(filterName = "filtroUtente", urlPatterns = "/Utente/*")
 public class FiltroUtente implements Filter{
 
 	@Override

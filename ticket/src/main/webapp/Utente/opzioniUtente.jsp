@@ -28,10 +28,11 @@
 <br>
 
 
-    <form action="SceltaAdmin" method="post">
-      <input type="submit"  class = "button" name ="azione" value="Lamentati" /> <br><br>
-      <input type="submit"  class = "button" name ="azione" value="Gestione Applicazione" /> <br><br>
+    <form action="Utente/SceltaUtente" method="post">
+      <input type="submit"  class = "button" name ="azione" value="Crea Ticket" /> <br><br>
       <input type="submit"  class = "button" name ="azione" value="Gestione Ticket" /> <br><br>
+      <input type="submit"  class = "button" name ="azione" value="Log Out" /> <br><br>
+      
     </form>
     <% } %>
     
