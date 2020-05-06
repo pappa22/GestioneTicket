@@ -162,6 +162,7 @@ public class Controller {
 			return query.getResultList();
 		}
 		
+
 		public List<Applicazione> stampaTutteLeApplicazioni() {
 			TypedQuery<Applicazione> query = em.createQuery("select a from Applicazione a",
 					Applicazione.class);
@@ -170,6 +171,16 @@ public class Controller {
 		}
 		
 		
+
+		public void rimuoviApplicazione(String nomeApp, Admin admin) {
+			Query query = em.createQuery("DELETE Applicazione WHERE nome = ?1 and admin=?2").setParameter(1, nomeApp).setParameter(2, admin);
+			em.getTransaction().begin();
+			int result = query.executeUpdate();
+			if(result!=0) {
+				em.getTransaction().commit();	     
+			}
+		}
+
 		
 		public void aggiungiApplicazione(String nome, String descrizione, Admin admin) {
 			Applicazione applicazione = new Applicazione();
@@ -185,6 +196,10 @@ public class Controller {
 			if(find != null) {
 				return true;
 			}return false;
+		}
+
+		public Applicazione getApplicazione(String nomeApp) {
+			return em.find(Applicazione.class, nomeApp);
 		}
 
 }
