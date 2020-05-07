@@ -25,11 +25,13 @@ public class GestioneApplicazione extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Controller gestione = new Controller();
 		String azione = req.getParameter("azione");
-		long id = Long.parseLong(req.getParameter("id"));
+		long id = -1;
+		if (req.getParameter("id") != null && !req.getParameter("id").equals("")) {
+			id = Long.parseLong(req.getParameter("id"));
+		}		
 		HttpSession session = (HttpSession) req.getSession();
 		Admin admin = (Admin) session.getAttribute("admin");
-		Applicazione applicazione = gestione.getApplicazione(id);
-		 
+		Applicazione applicazione = gestione.getApplicazione(id); 
 		if(azione == null) {
 			req.getRequestDispatcher("/Admin/GestioneApplicazione.jsp").forward(req, resp);
 		} else if (azione.equalsIgnoreCase("Modifica")) {

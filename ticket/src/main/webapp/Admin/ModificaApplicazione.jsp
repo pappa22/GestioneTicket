@@ -17,11 +17,24 @@
 <%Applicazione app = (Applicazione) request.getAttribute("applicazione");%>
 <%Controller gestione = new Controller(); %>
 
+<% String path = request.getContextPath(); %>
+
+<form action="ModificaApplicazione" method="post">
+  <h1><%=app.getNome()%></h1>
+  <h2>Inserisci le caratteristiche  da modificare</h2>
+       
+    <label for="nome">Nome:</label><br>
+    <input type="text" required="required" name="nome" placeholder="<%=app.getNome()%>" /><br><br>
+     <label for="descrizione">Descrizione:</label><br>
+     <input type="text" required="required" name="descrizione" placeholder="<%=app.getDescrizione()%>" /><br><br> 
+     <label for="admin">Admin:</label><br> 
+     <input type="text" required="required" name="admin" placeholder="<%=app.getAdmin()%>"><br>   
+  <br><input type="submit" class = "button"  value="Modifica">
+</form>
+
  
-
-
-<form action="indietro" method="post">
-<input type="submit" name="azione" value="Torna indietro">	
+<form action="<%=path%>/Admin/GestioneApplicazione" method="post">
+<input type="submit" name="azione" value="Torna indietro">  
 </form>
 </div>
 </body>
