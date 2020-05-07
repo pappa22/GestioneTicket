@@ -29,7 +29,8 @@ public class SceltaUtente extends HttpServlet {
 		if (req.getParameter("idApp") != null && !req.getParameter("idApp").equals("")) {
 			 idApp = Long.parseLong(req.getParameter("idApp"));
 		}
-				
+		
+	
 		HttpSession session = (HttpSession) req.getSession();
 		
 		if (scelta.equalsIgnoreCase("Lista Applicazioni")) {
@@ -44,12 +45,13 @@ public class SceltaUtente extends HttpServlet {
 //		} 
 		
 		else if (scelta.equalsIgnoreCase("Gestione Ticket")) {
+			req.setAttribute("ticket", gestione.getTicket(idApp));
 			req.setAttribute("idApp", idApp);
 			req.getRequestDispatcher("/Utente/GestioneTicket.jsp").forward(req, resp);
 		} 
 		
 		else if (scelta.equalsIgnoreCase("Crea Ticket")) {
-			
+		
 			req.setAttribute("idApp", idApp);
 			req.getRequestDispatcher("/Utente/CreaTicket.jsp").forward(req, resp);
 		} 

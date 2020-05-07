@@ -13,6 +13,7 @@ import javax.persistence.TypedQuery;
 import javax.servlet.http.Part;
 import it.dstech.modelli.Admin;
 import it.dstech.modelli.Applicazione;
+import it.dstech.modelli.Ticket;
 import it.dstech.modelli.Utente;
 
 public class Controller {
@@ -201,5 +202,34 @@ public class Controller {
 		public Applicazione getApplicazione(long id) {
 			return em.find(Applicazione.class, id);
 		}
+
+		public void creaTicket(Ticket ticket) {	
+			
+			em.getTransaction().begin();
+			em.persist(ticket);
+			em.getTransaction().commit();
+			
+		}
+
+		public Ticket getTicket(long idTicket) {
+			return em.find(Ticket.class, idTicket);
+		}
+
+		public void modificaTicket(String nome, String descrizione, long id) {
+			Ticket ticket = getTicket(id);
+			em.getTransaction().begin();
+			ticket.setNome(nome);
+			ticket.setDescrizione(descrizione);
+			em.getTransaction().commit();
+		}
+		
+		 public void rimuoviTicket(long id) {
+			 Query query = em.createQuery("DELETE Ticket WHERE id = ?1").setParameter(1, id);
+			 em.getTransaction().begin();
+		     int result = query.executeUpdate();
+		     if(result!=0) {System.out.println("che bello");} else {System.out.println("che brutto");}
+		     em.getTransaction().commit();
+		     
+		  }
 
 }

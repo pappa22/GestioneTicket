@@ -23,8 +23,7 @@ public class Applicazione {
     @JoinColumn(name="admin")
     private Admin admin;
     
-    @OneToMany
-    @JoinColumn(name="ticket")
+    @OneToMany(mappedBy="applicazione")
     List<Ticket> listaTicket = new ArrayList<Ticket>();
     
 
@@ -66,6 +65,12 @@ public class Applicazione {
 
 	public void setListaTicket(List<Ticket> listaTicket) {
 		this.listaTicket = listaTicket;
+	}
+
+	@Override
+	public String toString() {
+		return "Applicazione [id=" + id + ", nome=" + nome + ", descrizione=" + descrizione + ", admin=" + admin
+				+ ", listaTicket=" + listaTicket + "]";
 	}
     
     

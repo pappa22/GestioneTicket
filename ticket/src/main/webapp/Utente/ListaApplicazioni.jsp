@@ -18,7 +18,7 @@
 	if (messaggio != null) {
 	%>
 
-	<p class="text-md-center text-white"><%=messaggio%></p>
+	<p class="text-md-center text-danger"><%=messaggio%></p>
 
 	<%
 		}
@@ -73,7 +73,8 @@
 
 							<td>
 
-								<form action="Utente/SceltaUtente" method="post">
+								<% String path = request.getContextPath(); %>
+	                           <form action="<%=path%>/Utente/SceltaUtente" method="post">
 									
 									<c:if test="${empty app.getListaTicket()}">  
    
