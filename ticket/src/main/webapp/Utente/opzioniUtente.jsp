@@ -27,12 +27,12 @@
 
       <h1>Benvenuto Utente <%=u.getUsername()%></h1>
 
-      <br>Qui puoi recensire delle nostre applicazioni.<br>
+      <br>Qui puoi recensire le nostre applicazioni.<br>
 
 <br>
 
-
-    <form action="Utente/SceltaUtente" method="post">
+<% String path = request.getContextPath(); %>
+    <form action="<%=path%>/Utente/SceltaUtente" method="post">
       <input type="submit"  class = "button" name ="azione" value="Lista Applicazioni" /> <br><br>
       <input type="submit"  class = "button" name ="azione" value="Gestione Ticket" /> <br><br>
       <input type="submit"  class = "button" name ="azione" value="Log Out" /> <br><br>

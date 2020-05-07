@@ -47,7 +47,7 @@
  					<td><c:out value="${lista.getDescrizione()}" /></td>
  					<td>
     					<form action="GestioneApplicazione" method="post">
-   					 	<input type="hidden" name ="applicazione" value="${lista.getNome()}"><br><br>
+   					 	<input type="hidden" name ="id" value="${lista.getId()}"><br><br>
    					 	<input type="submit" name="azione" value="Modifica">
     					<input type="submit" name="azione" value="Rimuovi">
 						</form>
@@ -59,7 +59,7 @@
 	<hr>
   <td>
 
-	<form action="<%=path%>/Admin/SceltaAdmin" method="post">
+	<form action="indietro" method="post">
 		<input type="submit" name="Home" value="Torna Indietro">
 	</form>
 	

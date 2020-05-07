@@ -26,6 +26,7 @@ public class FiltroUtente implements Filter{
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		System.out.println("Sono nel filtro utente");
+		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession sessione = ((HttpServletRequest) request).getSession();
 		Utente utente = (Utente) sessione.getAttribute("utente");
@@ -33,8 +34,8 @@ public class FiltroUtente implements Filter{
 			System.out.println("sessione esistente");
 			chain.doFilter(request, response);
 		}else {
-			System.out.println("sessione insesistente");
-			resp.sendRedirect("/ticket/Homepage.jsp");
+			System.out.println("sessione inesistente");
+			resp.sendRedirect(req.getContextPath() + "/");
 		}
 	}
 

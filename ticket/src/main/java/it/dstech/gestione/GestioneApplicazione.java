@@ -25,10 +25,10 @@ public class GestioneApplicazione extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Controller gestione = new Controller();
 		String azione = req.getParameter("azione");
-		String app = req.getParameter("applicazione");
+		long id = Long.parseLong(req.getParameter("id"));
 		HttpSession session = (HttpSession) req.getSession();
 		Admin admin = (Admin) session.getAttribute("admin");
-		Applicazione applicazione = gestione.getApplicazione(app);
+		Applicazione applicazione = gestione.getApplicazione(id);
 		 
 		if(azione == null) {
 			req.getRequestDispatcher("/Admin/GestioneApplicazione.jsp").forward(req, resp);
@@ -37,7 +37,7 @@ public class GestioneApplicazione extends HttpServlet {
 			req.setAttribute("applicazione", applicazione);
 			req.getRequestDispatcher("/Admin/ModificaApplicazione.jsp").forward(req, resp);
 		} else if (azione.equalsIgnoreCase("Rimuovi")) {
-			gestione.rimuoviApplicazione(app, admin);
+			gestione.rimuoviApplicazione(id);
 			req.setAttribute("messApp", "Applicazione rimossa");
 			req.setAttribute("listaApplicazioni", gestione.stampaListaApplicazioni(admin));
 			req.getRequestDispatcher("/Admin/GestioneApplicazione.jsp").forward(req, resp);

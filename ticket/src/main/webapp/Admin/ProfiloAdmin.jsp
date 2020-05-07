@@ -27,8 +27,8 @@
 
 <br>
 
-
-    <form action="Admin/SceltaAdmin" method="post">
+<% String path = request.getContextPath(); %>
+    <form action="<%=path%>/Admin/SceltaAdmin" method="post">
       <input type="submit"  class = "button" name ="azione" value="Aggiungi Applicazione" /> <br><br>
       <input type="submit"  class = "button" name ="azione" value="Gestione Applicazione" /> <br><br>
       <input type="submit"  class = "button" name ="azione" value="Gestione Ticket" /> <br><br>

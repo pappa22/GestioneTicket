@@ -172,8 +172,8 @@ public class Controller {
 		
 		
 
-		public void rimuoviApplicazione(String nomeApp, Admin admin) {
-			Query query = em.createQuery("DELETE Applicazione WHERE nome = ?1 and admin=?2").setParameter(1, nomeApp).setParameter(2, admin);
+		public void rimuoviApplicazione(long id) {
+			Query query = em.createQuery("DELETE Applicazione WHERE id = ?1").setParameter(1, id);
 			em.getTransaction().begin();
 			int result = query.executeUpdate();
 			if(result!=0) {
@@ -191,15 +191,15 @@ public class Controller {
 			em.persist(applicazione);
 			em.getTransaction().commit();
 		}
-		public boolean checkEsistenzaApplicazione(String nome) {
-			Applicazione find = em.find(Applicazione.class, nome);
-			if(find != null) {
-				return true;
-			}return false;
-		}
+//		public boolean checkEsistenzaApplicazione(String nome) {
+//			Applicazione find = em.find(Applicazione.class, nome);
+//			if(find != null) {
+//				return true;
+//			}return false;
+//		}
 
-		public Applicazione getApplicazione(String nomeApp) {
-			return em.find(Applicazione.class, nomeApp);
+		public Applicazione getApplicazione(long id) {
+			return em.find(Applicazione.class, id);
 		}
 
 }

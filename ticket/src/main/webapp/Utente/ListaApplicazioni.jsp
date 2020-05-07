@@ -57,7 +57,7 @@
 						</c:forEach>
 					</table>
 					<br>
-					<form action="TornaIndietroUtente" method="post">
+					<form action="tornaIndietro" method="post">
 
 						<input type="submit" class="btn btn-primary btn-block"
 							style="width: 150px; height: 50px; margin: auto"

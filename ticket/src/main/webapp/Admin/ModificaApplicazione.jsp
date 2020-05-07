@@ -20,7 +20,7 @@
  
 
 
-<form action="GestioneEroe" method="post">
+<form action="indietro" method="post">
 <input type="submit" name="azione" value="Torna indietro">	
 </form>
 </div>

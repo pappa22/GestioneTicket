@@ -4,6 +4,8 @@ package it.dstech.modelli;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,6 +17,8 @@ import org.hibernate.annotations.CreationTimestamp;
 public class Ticket {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
     private String nome;
 	private String descrizione;
 	private boolean stato;
@@ -79,4 +83,11 @@ public class Ticket {
 	public void setApplicazione(Applicazione applicazione) {
 		this.applicazione = applicazione;
 	}  	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 }
