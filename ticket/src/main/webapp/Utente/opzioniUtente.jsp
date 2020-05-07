@@ -3,16 +3,17 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<link href="css/Admin.css" rel="stylesheet" type="text/css">
-<link href="css/text.css" rel="stylesheet" type="text/css">
-<link href="css/table.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+
 <head>
 <meta charset="ISO-8859-1">
 <title>Profilo Utente</title>
 </head>
-<body class="Admin">
-<div class="center">
 
+<div class="center">
 
     <% String messaggio = (String) request.getAttribute("mess");
     	Utente u = (Utente) session.getAttribute("utente");
@@ -25,7 +26,7 @@
   else {
 %>
 
-      <h1>Benvenuto Utente <%=u.getUsername()%></h1>
+      <h1>Benvenuto/a <%=u.getUsername()%></h1>
 
       <br>Qui puoi recensire le nostre applicazioni.<br>
 

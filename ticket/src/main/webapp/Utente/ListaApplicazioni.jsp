@@ -23,7 +23,13 @@
 			}
 		%>
 		<br>
-		
+	
+					<form action="tornaIndietro" method="post">
+
+						<input type="submit" class="btn btn-primary btn-block"
+							style="width: 125px; height: 45px; margin: auto"
+							name="azione" value="Torna Indietro">
+					</form>	<br>
 		<div class="container">
 			<div class="row">
 				<div class="col-xl align-self-center ">
@@ -56,13 +62,7 @@
 							
 						</c:forEach>
 					</table>
-					<br>
-					<form action="tornaIndietro" method="post">
-
-						<input type="submit" class="btn btn-primary btn-block"
-							style="width: 150px; height: 50px; margin: auto"
-							name="azione" value="Torna Indietro">
-					</form>
+					
 				</div></div></div>
 
 </body>

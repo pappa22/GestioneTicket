@@ -42,6 +42,7 @@ public class SceltaUtente extends HttpServlet {
 		} 
 		
 		else if (scelta.equalsIgnoreCase("Ticket")) {
+			//nomeApp
 			req.getRequestDispatcher("/Utente/GestioneTicket.jsp").forward(req, resp);
 		} 
 		

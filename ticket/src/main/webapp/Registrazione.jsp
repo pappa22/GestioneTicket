@@ -7,6 +7,7 @@
 <title>Registrazione</title>
 </head>
 <body>
+<br>
 <%
 		String messaggio = (String) request.getAttribute("mess");
 		if (messaggio != null) {
@@ -18,8 +19,7 @@
 		}
 	%>
 	<br>
-	<br>
-	<br><br><br>
+
 	<form action="Registrazione" method="post" enctype = "multipart/form-data">
 		
 		
