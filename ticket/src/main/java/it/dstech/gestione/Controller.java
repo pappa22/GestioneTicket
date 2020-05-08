@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -203,14 +204,38 @@ public class Controller {
 		em.getTransaction().begin();
 		Applicazione app = getApplicazione(id);
 		admin.getListaApplicazioni().remove(app);
+		Ticket ticket = getTicketApp(id);
+		if (ticket == null) {
+			app.getListaTicket().remove(ticket);
+			Query query = em.createQuery("DELETE Applicazione t WHERE t.id = ?1").setParameter(1, id);
+			
+			int result = query.executeUpdate();
+			
+			
+			if (result != 0 ) {
+				System.out.println("che bello");
+			} else {
+				System.out.println("che brutto");
+			}
+			em.getTransaction().commit();
+		}
+		else {
+		ticket.setApplicazione(null);
+		
+		app.getListaTicket().remove(ticket);
 		Query query = em.createQuery("DELETE Applicazione t WHERE t.id = ?1").setParameter(1, id);
+		Query queryT = em.createQuery("DELETE Ticket t WHERE t.id= ?1").setParameter(1, ticket.getId());
+		
 		int result = query.executeUpdate();
-		if (result != 0) {
+		int resultT = queryT.executeUpdate();
+		
+		if (result != 0 && resultT !=0 ) {
 			System.out.println("che bello");
 		} else {
 			System.out.println("che brutto");
 		}
 		em.getTransaction().commit();
+	}
 	}
 
 	public void aggiungiApplicazione(String nome, String descrizione, Admin admin) {
@@ -260,7 +285,13 @@ public class Controller {
 		Applicazione applicazione = getApplicazione(idApp);
 		Query query = em.createQuery("select t from Ticket t where t.applicazione = ?1", Ticket.class).setParameter(1,
 				applicazione);
-		return (Ticket) query.getSingleResult();
+		try {
+		Ticket t =  (Ticket) query.getSingleResult();
+		return t;
+		}catch (NoResultException e) {
+			return null;
+		}
+		
 	}
 
 	public void modificaTicket(String nome, String descrizione, long id, Utente utente) {

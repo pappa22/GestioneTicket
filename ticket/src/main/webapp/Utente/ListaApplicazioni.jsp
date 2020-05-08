@@ -67,7 +67,7 @@
 								</h5></td>
 							<td><h5>
 									<p class="text-md text-black">
-										<c:out value="${app.getAdmin()}" />
+										<c:out value="${app.getAdmin().getNome()}" />
 									</p>
 								</h5></td>
 
