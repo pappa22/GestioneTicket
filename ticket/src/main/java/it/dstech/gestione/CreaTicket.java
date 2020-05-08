@@ -38,7 +38,7 @@ public class CreaTicket extends HttpServlet {
 	ticket.setUtente(utente);
     ticket.setStato(true);
     ticket.setApplicazione(applicazione);
-    gestione.creaTicket(ticket);
+    gestione.creaTicket(ticket,idApp,utente.getUsername());
 	System.out.println("stampa app"+ applicazione.getListaTicket());
     req.setAttribute("mess", "Ticket creato con successo");
     req.setAttribute("listaApplicazioni", gestione.stampaTutteLeApplicazioni());

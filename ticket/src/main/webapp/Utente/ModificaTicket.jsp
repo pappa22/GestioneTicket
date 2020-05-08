@@ -28,17 +28,17 @@
 			style="width: 125px; height: 45px; margin: auto" name="azione"
 			value="Torna Indietro">
 	</form>
-	<c:forEach items="${ticket}" var="ticket">
+	
 	
 	<% String path = request.getContextPath(); %>
 	<form action="<%=path%>/Utente/ModificaTicket" method="post">
-<input type="hidden" id="id" name="id" value="<c:out value='${ticket.getId()}'></c:out>" />
+<input type="hidden" id="id" name="idTicket" value="<c:out value='${ticket.getId()}'></c:out>" />
 		<input type="text" name="nome"  value="<c:out value="${ticket.getNome()}" />"> <br> 
 		<input type="text" name="descrizione"  value="<c:out value="${ticket.getDescrizione()}"/>"> <br> 
 		<br>
 		<button type="submit" class="pulsante">Modifica</button>
 		<br>
 	</form>
-</c:forEach>
+
 </body>
 </html>

@@ -204,29 +204,59 @@ public class Controller {
 		return em.find(Applicazione.class, id);
 	}
 
-		public void creaTicket(Ticket ticket) {	
-			
+		public void creaTicket(Ticket ticket ,long idApp, String username) {	
+			Applicazione app =getApplicazione(idApp);
+			app.getListaTicket().add(ticket);
+			Utente utente = getUtente(username);
+			utente.getListaTicket().add(ticket);
 			em.getTransaction().begin();
 			em.persist(ticket);
+			em.persist(app);
+			em.persist(utente);
 			em.getTransaction().commit();
 			
 		}
 
-		public Ticket getTicket(long idTicket) {
-			return em.find(Ticket.class, idTicket);
+		public Ticket getTicket(Utente utente , long idTicket) {
+			
+			for(Ticket ticket:utente.getListaTicket()) {
+				if(ticket.getId()==idTicket) {
+					return ticket;
+				}
+			}
+			return null;
 		}
+		
+		public Ticket getTicketApp(long idApp) {
+			Applicazione applicazione = getApplicazione(idApp);
+			   Query query = em.createQuery("select t from Ticket t where t.applicazione = ?1", Ticket.class).setParameter(1, applicazione);
+			   return (Ticket) query.getSingleResult();
+			  }
 
-		public void modificaTicket(String nome, String descrizione, long id) {
-			Ticket ticket = getTicket(id);
+		public void modificaTicket(String nome, String descrizione, long id,Utente utente) {
+			Ticket ticket = getTicket(utente, id);
 			em.getTransaction().begin();
 			ticket.setNome(nome);
 			ticket.setDescrizione(descrizione);
 			em.getTransaction().commit();
 		}
 		
-		 public void rimuoviTicket(long id) {
-			 Query query = em.createQuery("DELETE Ticket WHERE id = ?1").setParameter(1, id);
+		
+		public void eliminaComposizione(String nome) {
+			  em.getTransaction().begin();
+			  Query query = em.createQuery("DELETE FROM Composizione c where c.nome = ?1");
+			  query.setParameter(1, nome);
+			  query.executeUpdate();
+			  em.getTransaction().commit();
+			 }
+		
+		
+		 public void rimuoviTicket(long id, long idApp, Utente utente) {
 			 em.getTransaction().begin();
+			 Ticket ticket = getTicket(utente, id);
+			 Applicazione app =getApplicazione(idApp);
+				app.getListaTicket().remove(ticket);
+			 Query query = em.createQuery("DELETE Ticket t WHERE t.id = ?1").setParameter(1, id);
 		     int result = query.executeUpdate();
 		     if(result!=0) {System.out.println("che bello");} else {System.out.println("che brutto");}
 		     em.getTransaction().commit();

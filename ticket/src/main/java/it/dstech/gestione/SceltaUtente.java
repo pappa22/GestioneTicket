@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import it.dstech.modelli.Admin;
 
 
 @WebServlet(urlPatterns = "/Utente/SceltaUtente")
@@ -45,13 +44,14 @@ public class SceltaUtente extends HttpServlet {
 //		} 
 		
 		else if (scelta.equalsIgnoreCase("Gestione Ticket")) {
-			req.setAttribute("ticket", gestione.getTicket(idApp));
+			System.out.println("//////////////"+idApp);
+			req.setAttribute("ticket", gestione.getTicketApp(idApp));
 			req.setAttribute("idApp", idApp);
 			req.getRequestDispatcher("/Utente/GestioneTicket.jsp").forward(req, resp);
 		} 
 		
 		else if (scelta.equalsIgnoreCase("Crea Ticket")) {
-		
+		System.out.println("//////////////"+idApp);
 			req.setAttribute("idApp", idApp);
 			req.getRequestDispatcher("/Utente/CreaTicket.jsp").forward(req, resp);
 		} 
