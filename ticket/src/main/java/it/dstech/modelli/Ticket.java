@@ -26,11 +26,11 @@ public class Ticket {
 	@CreationTimestamp
     private Timestamp data;
 	
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="utente")
     private Utente utente;
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="applicazione")
     private Applicazione applicazione;
 

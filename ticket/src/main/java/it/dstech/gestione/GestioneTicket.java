@@ -33,13 +33,10 @@ public class GestioneTicket extends HttpServlet {
 		if(scelta.equalsIgnoreCase("Modifica Ticket")){
 			req.setAttribute("ticket", ticket);
 			req.getRequestDispatcher("/Utente/ModificaTicket.jsp").forward(req, resp);
-			
-			
 		}else if(scelta.equalsIgnoreCase("Elimina Ticket")){
 			gestione.rimuoviTicket(id, ticket.getApplicazione().getId(),utente);
 			req.setAttribute("listaApplicazioni", gestione.stampaTutteLeApplicazioni());
 			req.getRequestDispatcher("/Utente/ListaApplicazioni.jsp").forward(req, resp);
-			
 		}
 	}
 }

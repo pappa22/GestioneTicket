@@ -28,8 +28,6 @@ public class ModificaTicket extends HttpServlet {
 		long id = Long.parseLong(req.getParameter("idTicket"));
 		String nome =req.getParameter("nome");
 		String descrizione =req.getParameter("descrizione");
-
-		
 		gestione.modificaTicket(nome,descrizione,id,utente);
 		req.setAttribute("ticket", gestione.getTicket(utente,id));
 		req.getRequestDispatcher("/Utente/GestioneTicket.jsp").forward(req, resp);

@@ -24,15 +24,12 @@
   <h2>Inserisci le caratteristiche  da modificare</h2>
        
     <label for="nome">Nome:</label><br>
-    <input type="text" required="required" name="nome" placeholder="<%=app.getNome()%>" /><br><br>
+    <input type="text" required="required" name="nome" value="<%=app.getNome()%>" /><br><br>
      <label for="descrizione">Descrizione:</label><br>
-     <input type="text" required="required" name="descrizione" placeholder="<%=app.getDescrizione()%>" /><br><br> 
-     <label for="admin">Admin:</label><br> 
-     <input type="text" required="required" name="admin" placeholder="<%=app.getAdmin()%>"><br>   
+     <input type="text" required="required" name="descrizione" value="<%=app.getDescrizione()%>" /><br><br> 
   <br><input type="submit" class = "button"  value="Modifica">
+  <input type="hidden" value="<%=app.getId()%>" name="idApp">
 </form>
-
- 
 <form action="<%=path%>/Admin/GestioneApplicazione" method="post">
 <input type="submit" name="azione" value="Torna indietro">  
 </form>

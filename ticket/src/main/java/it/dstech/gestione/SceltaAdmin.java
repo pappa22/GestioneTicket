@@ -37,8 +37,12 @@ public class SceltaAdmin extends HttpServlet {
 			req.setAttribute("listaApplicazioni", gestione.stampaListaApplicazioni(admin));
 			req.getRequestDispatcher("/Admin/GestioneApplicazione.jsp").forward(req, resp);
 		} else if (scelta.equalsIgnoreCase("Gestione Ticket")) {
-			req.setAttribute("listaApplicazioni", gestione.stampaListaApplicazioni(admin));
-			req.getRequestDispatcher("/Admin/GestioneTicket.jsp").forward(req, resp);
+			req.setAttribute("listaTicketAttivo", gestione.stampaStatoTicketAttivo(admin));
+			req.setAttribute("listaTicketChiuso", gestione.stampaStatoTicketChiuso(admin));
+			req.getRequestDispatcher("/Admin/CambiaStatoTicket.jsp").forward(req, resp);
+		}	else if (scelta.equalsIgnoreCase("Log out")) {
+			session.invalidate();
+			resp.sendRedirect(req.getContextPath() + "/");
 		}
 	}
 }

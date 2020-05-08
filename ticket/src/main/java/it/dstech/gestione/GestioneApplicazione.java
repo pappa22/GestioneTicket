@@ -2,6 +2,7 @@ package it.dstech.gestione;
 
 import java.io.IOException;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import it.dstech.modelli.Admin;
 import it.dstech.modelli.Applicazione;
+import it.dstech.utility.EmailUtility;
 
 
 @WebServlet(urlPatterns = "/Admin/GestioneApplicazione")
@@ -39,10 +41,24 @@ public class GestioneApplicazione extends HttpServlet {
 			req.setAttribute("applicazione", applicazione);
 			req.getRequestDispatcher("/Admin/ModificaApplicazione.jsp").forward(req, resp);
 		} else if (azione.equalsIgnoreCase("Rimuovi")) {
-			gestione.rimuoviApplicazione(id);
+			gestione.rimuoviApplicazione(id, admin);
 			req.setAttribute("messApp", "Applicazione rimossa");
 			req.setAttribute("listaApplicazioni", gestione.stampaListaApplicazioni(admin));
 			req.getRequestDispatcher("/Admin/GestioneApplicazione.jsp").forward(req, resp);
-		} 
+		} else if(azione.equalsIgnoreCase("Chiudi Ticket")) {
+			String email = req.getParameter("email");
+			long idTicket = Long.parseLong(req.getParameter("id"));
+			gestione.chiudiTicket(idTicket);
+			String oggetto = "Chiusura ticket";
+			String messaggio = "Grazie per la sua recensione, abbiamo risolto il problema :)";
+			try {
+				EmailUtility.sendEmail(email, oggetto, messaggio);
+			} catch (MessagingException | IOException e) {
+				e.printStackTrace();
+			}
+			req.setAttribute("listaTicketAttivo", gestione.stampaStatoTicketAttivo(admin));
+			req.setAttribute("listaTicketChiuso", gestione.stampaStatoTicketChiuso(admin));
+			req.getRequestDispatcher("/Admin/CambiaStatoTicket.jsp").forward(req, resp);
+		}
 	}
 }

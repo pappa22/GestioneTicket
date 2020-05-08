@@ -2,6 +2,7 @@ package it.dstech.gestione;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -133,9 +134,10 @@ public class Controller {
 		}
 		return false;
 	}
-	
+
 	public Admin getAdmin(String nome) {
-		Admin admin = em.createQuery("SELECT e FROM Admin e WHERE e.nome = ?1", Admin.class).setParameter(1, nome).getSingleResult();
+		Admin admin = em.createQuery("SELECT e FROM Admin e WHERE e.nome = ?1", Admin.class).setParameter(1, nome)
+				.getSingleResult();
 		return admin;
 	}
 
@@ -171,17 +173,44 @@ public class Controller {
 
 	public List<Applicazione> stampaTutteLeApplicazioni() {
 		TypedQuery<Applicazione> query = em.createQuery("select a from Applicazione a", Applicazione.class);
-
 		return query.getResultList();
 	}
+	public List<Ticket> stampaStatoTicketAttivo(Admin admin) {
+		List<Ticket> lista = new ArrayList<>();
+		List<Applicazione> listaApplicazioni = admin.getListaApplicazioni();
+		for (Applicazione applicazione : listaApplicazioni) {
+			for (Ticket ticket : applicazione.getListaTicket()) {
+				if(ticket.isStato()) {
+					lista.add(ticket);
+				}
+			}
+		}return lista;
+	}
+	
+	public List<Ticket> stampaStatoTicketChiuso(Admin admin) {
+		List<Ticket> lista = new ArrayList<>();
+		List<Applicazione> listaApplicazioni = admin.getListaApplicazioni();
+		for (Applicazione applicazione : listaApplicazioni) {
+			for (Ticket ticket : applicazione.getListaTicket()) {
+				if(!ticket.isStato()) {
+					lista.add(ticket);
+				}
+			}
+		}return lista;
+	}
 
-	public void rimuoviApplicazione(long id) {
-		Query query = em.createQuery("DELETE Applicazione WHERE id = ?1").setParameter(1, id);
+	public void rimuoviApplicazione(long id, Admin admin) {
 		em.getTransaction().begin();
+		Applicazione app = getApplicazione(id);
+		admin.getListaApplicazioni().remove(app);
+		Query query = em.createQuery("DELETE Applicazione t WHERE t.id = ?1").setParameter(1, id);
 		int result = query.executeUpdate();
 		if (result != 0) {
-			em.getTransaction().commit();
+			System.out.println("che bello");
+		} else {
+			System.out.println("che brutto");
 		}
+		em.getTransaction().commit();
 	}
 
 	public void aggiungiApplicazione(String nome, String descrizione, Admin admin) {
@@ -204,77 +233,78 @@ public class Controller {
 		return em.find(Applicazione.class, id);
 	}
 
-		public void creaTicket(Ticket ticket ,long idApp, String username) {	
-			Applicazione app =getApplicazione(idApp);
-			app.getListaTicket().add(ticket);
-			Utente utente = getUtente(username);
-			utente.getListaTicket().add(ticket);
-			em.getTransaction().begin();
-			em.persist(ticket);
-			em.persist(app);
-			em.persist(utente);
-			em.getTransaction().commit();
-			
-		}
-
-		public Ticket getTicket(Utente utente , long idTicket) {
-			
-			for(Ticket ticket:utente.getListaTicket()) {
-				if(ticket.getId()==idTicket) {
-					return ticket;
-				}
-			}
-			return null;
-		}
-		
-		public Ticket getTicketApp(long idApp) {
-			Applicazione applicazione = getApplicazione(idApp);
-			   Query query = em.createQuery("select t from Ticket t where t.applicazione = ?1", Ticket.class).setParameter(1, applicazione);
-			   return (Ticket) query.getSingleResult();
-			  }
-
-		public void modificaTicket(String nome, String descrizione, long id,Utente utente) {
-			Ticket ticket = getTicket(utente, id);
-			em.getTransaction().begin();
-			ticket.setNome(nome);
-			ticket.setDescrizione(descrizione);
-			em.getTransaction().commit();
-		}
-		
-		
-		public void eliminaComposizione(String nome) {
-			  em.getTransaction().begin();
-			  Query query = em.createQuery("DELETE FROM Composizione c where c.nome = ?1");
-			  query.setParameter(1, nome);
-			  query.executeUpdate();
-			  em.getTransaction().commit();
-			 }
-		
-		
-		 public void rimuoviTicket(long id, long idApp, Utente utente) {
-			 em.getTransaction().begin();
-			 Ticket ticket = getTicket(utente, id);
-			 Applicazione app =getApplicazione(idApp);
-				app.getListaTicket().remove(ticket);
-			 Query query = em.createQuery("DELETE Ticket t WHERE t.id = ?1").setParameter(1, id);
-		     int result = query.executeUpdate();
-		     if(result!=0) {System.out.println("che bello");} else {System.out.println("che brutto");}
-		     em.getTransaction().commit();
-		     
-		  }
-
-	public void modificaApplicazione(Applicazione appModificata, Applicazione appDaModificare) {
-
-		Query query = em.createQuery("SELECT appModificata FROM Applicazione appModificata WHERE appModificata.id = ?1", Applicazione.class).setParameter(1,
-				appDaModificare.getId());
-		Applicazione app = (Applicazione) query.getSingleResult();
+	public void creaTicket(Ticket ticket, long idApp, String username) {
+		Applicazione app = getApplicazione(idApp);
+		app.getListaTicket().add(ticket);
+		Utente utente = getUtente(username);
+		utente.getListaTicket().add(ticket);
 		em.getTransaction().begin();
-		app.setNome(appModificata.getNome());
-		app.setDescrizione(appModificata.getDescrizione());
-		app.setAdmin(appModificata.getAdmin());
+		em.persist(ticket);
+		em.persist(app);
+		em.persist(utente);
 		em.getTransaction().commit();
 
 	}
-	
 
+	public Ticket getTicket(Utente utente, long idTicket) {
+
+		for (Ticket ticket : utente.getListaTicket()) {
+			if (ticket.getId() == idTicket) {
+				return ticket;
+			}
+		}
+		return null;
+	}
+
+	public Ticket getTicketApp(long idApp) {
+		Applicazione applicazione = getApplicazione(idApp);
+		Query query = em.createQuery("select t from Ticket t where t.applicazione = ?1", Ticket.class).setParameter(1,
+				applicazione);
+		return (Ticket) query.getSingleResult();
+	}
+
+	public void modificaTicket(String nome, String descrizione, long id, Utente utente) {
+		Ticket ticket = getTicket(utente, id);
+		em.getTransaction().begin();
+		ticket.setNome(nome);
+		ticket.setDescrizione(descrizione);
+		em.getTransaction().commit();
+	}
+
+	public void rimuoviTicket(long id, long idApp, Utente utente) {
+		em.getTransaction().begin();
+		Ticket ticket = getTicket(utente, id);
+		Applicazione app = getApplicazione(idApp);
+		app.getListaTicket().remove(ticket);
+		Query query = em.createQuery("DELETE Ticket t WHERE t.id = ?1").setParameter(1, id);
+		int result = query.executeUpdate();
+		if (result != 0) {
+			System.out.println("che bello");
+		} else {
+			System.out.println("che brutto");
+		}
+		em.getTransaction().commit();
+
+	}
+
+	public void modificaApplicazione(String nome, String descrizione, long id) {
+		Applicazione app = getApplicazione(id);
+		em.getTransaction().begin();
+		app.setNome(nome);
+		app.setDescrizione(descrizione);
+		em.getTransaction().commit();
+	}
+
+	public List<Utente> getListaUtenti() {
+		TypedQuery<Utente> query = em.createQuery("select u from Utente u", Utente.class);
+		return query.getResultList();
+	}
+
+	public void chiudiTicket(long idTicket) {
+		Ticket ticket = em.find(Ticket.class, idTicket);
+		em.getTransaction().begin();
+		ticket.setStato(false);
+		em.getTransaction().commit();
+	}
+	
 }
