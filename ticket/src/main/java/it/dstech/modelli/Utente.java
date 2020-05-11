@@ -16,6 +16,7 @@ public class Utente {
     @Id
     private String username;
     private String password;
+    @Column(columnDefinition ="BOOLEAN NOT NULL")
     private boolean active;
     private String nome;
     private String cognome;

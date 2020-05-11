@@ -18,6 +18,7 @@ package it.dstech.modelli;
 	    
 	    @Id
 	    private String mail;
+	    @Column(columnDefinition ="BOOLEAN NOT NULL")
 	    private boolean active;
 	    
 	    @Lob

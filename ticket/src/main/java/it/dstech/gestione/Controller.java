@@ -176,28 +176,33 @@ public class Controller {
 		TypedQuery<Applicazione> query = em.createQuery("select a from Applicazione a", Applicazione.class);
 		return query.getResultList();
 	}
+	
 	public List<Ticket> stampaStatoTicketAttivo(Admin admin) {
 		List<Ticket> lista = new ArrayList<>();
-		List<Applicazione> listaApplicazioni = admin.getListaApplicazioni();
+		Admin ad = em.find(Admin.class, admin.getMail());
+		List<Applicazione> listaApplicazioni = ad.getListaApplicazioni();
 		for (Applicazione applicazione : listaApplicazioni) {
 			for (Ticket ticket : applicazione.getListaTicket()) {
 				if(ticket.isStato()) {
 					lista.add(ticket);
 				}
 			}
-		}return lista;
+		}
+		return lista;
 	}
 	
 	public List<Ticket> stampaStatoTicketChiuso(Admin admin) {
 		List<Ticket> lista = new ArrayList<>();
-		List<Applicazione> listaApplicazioni = admin.getListaApplicazioni();
+		Admin ad = em.find(Admin.class, admin.getMail());
+		List<Applicazione> listaApplicazioni = ad.getListaApplicazioni();
 		for (Applicazione applicazione : listaApplicazioni) {
 			for (Ticket ticket : applicazione.getListaTicket()) {
 				if(!ticket.isStato()) {
 					lista.add(ticket);
 				}
 			}
-		}return lista;
+		}
+		return lista;
 	}
 
 	public void rimuoviApplicazione(long id, Admin admin) {
@@ -206,7 +211,6 @@ public class Controller {
 		admin.getListaApplicazioni().remove(app);
 		Ticket ticket = getTicketApp(id);
 		if (ticket == null) {
-			app.getListaTicket().remove(ticket);
 			Query query = em.createQuery("DELETE Applicazione t WHERE t.id = ?1").setParameter(1, id);
 			
 			int result = query.executeUpdate();
@@ -283,15 +287,13 @@ public class Controller {
 
 	public Ticket getTicketApp(long idApp) {
 		Applicazione applicazione = getApplicazione(idApp);
-		Query query = em.createQuery("select t from Ticket t where t.applicazione = ?1", Ticket.class).setParameter(1,
-				applicazione);
+		Query query = em.createQuery("select t from Ticket t where t.applicazione = ?1", Ticket.class).setParameter(1, applicazione);
 		try {
-		Ticket t =  (Ticket) query.getSingleResult();
-		return t;
-		}catch (NoResultException e) {
+			Ticket t =  (Ticket) query.getSingleResult();
+			return t;
+		} catch (NoResultException e) {
 			return null;
 		}
-		
 	}
 
 	public void modificaTicket(String nome, String descrizione, long id, Utente utente) {

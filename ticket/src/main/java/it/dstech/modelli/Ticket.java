@@ -3,14 +3,13 @@ package it.dstech.modelli;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
@@ -21,7 +20,9 @@ public class Ticket {
 	private long id;
     private String nome;
 	private String descrizione;
+    @Column(columnDefinition ="BOOLEAN NOT NULL")
 	private boolean stato;
+	private String priorità;
 	
 	@CreationTimestamp
     private Timestamp data;
@@ -89,5 +90,13 @@ public class Ticket {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getPriorità() {
+		return priorità;
+	}
+
+	public void setPriorità(String priorità) {
+		this.priorità = priorità;
 	}
 }
