@@ -30,7 +30,7 @@
   <br><input type="submit" class = "button"  value="Modifica">
   <input type="hidden" value="<%=app.getId()%>" name="idApp">
 </form>
-<form action="<%=path%>/Admin/GestioneApplicazione" method="post">
+<form action="indietro" method="post">
 <input type="submit" name="azione" value="Torna indietro">  
 </form>
 </div>

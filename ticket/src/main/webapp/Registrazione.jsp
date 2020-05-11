@@ -52,12 +52,6 @@
 		<input type="file" required="required"  id="image" name="image" placeholder="Inserisci immagine profilo">
         </p><br> 
  
- <h4><p class="text-xl-center text-warning">Scegli il tipo di account</p></h4>
- <br>
- 	<input type="radio" name= "tipo" value="admin">Admin
- 	<br>
- 	<input type="radio"  name= "tipo" value="utente"/>Utente
-		<br><br>
 		<input type="submit" class="btn btn-warning btn-block"
 			style="width: 150px; height: 45px; margin: auto" name="azione"
 			value="Registrati">

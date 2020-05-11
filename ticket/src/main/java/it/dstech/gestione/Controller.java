@@ -177,39 +177,35 @@ public class Controller {
 		return query.getResultList();
 	}
 	
-	public List<Ticket> stampaStatoTicketAttivo(Admin admin) {
+	public List<Ticket> stampaStatoTicketAttivo(Admin admin, long id) {
 		List<Ticket> lista = new ArrayList<>();
 		Admin ad = em.find(Admin.class, admin.getMail());
-		List<Applicazione> listaApplicazioni = ad.getListaApplicazioni();
-		for (Applicazione applicazione : listaApplicazioni) {
-			for (Ticket ticket : applicazione.getListaTicket()) {
-				if(ticket.isStato()) {
-					lista.add(ticket);
-				}
-			}
+		Applicazione app = getApplicazione(id);
+		List<Ticket> query = em.createQuery("select t from Ticket t where t.applicazione = ?1 and t.stato = true", Ticket.class).setParameter(1, app).getResultList();
+		try {
+			return query;
+		} catch (NoResultException e) {
+			return null;
 		}
-		return lista;
 	}
 	
-	public List<Ticket> stampaStatoTicketChiuso(Admin admin) {
+	public List<Ticket> stampaStatoTicketChiuso(Admin admin, long id) {
 		List<Ticket> lista = new ArrayList<>();
 		Admin ad = em.find(Admin.class, admin.getMail());
-		List<Applicazione> listaApplicazioni = ad.getListaApplicazioni();
-		for (Applicazione applicazione : listaApplicazioni) {
-			for (Ticket ticket : applicazione.getListaTicket()) {
-				if(!ticket.isStato()) {
-					lista.add(ticket);
-				}
-			}
+		Applicazione app = getApplicazione(id);
+		List<Ticket> query = em.createQuery("select t from Ticket t where t.applicazione = ?1 and t.stato = false", Ticket.class).setParameter(1, app).getResultList();
+		try {
+			return query;
+		} catch (NoResultException e) {
+			return null;
 		}
-		return lista;
 	}
 
 	public void rimuoviApplicazione(long id, Admin admin) {
 		em.getTransaction().begin();
 		Applicazione app = getApplicazione(id);
 		admin.getListaApplicazioni().remove(app);
-		Ticket ticket = getTicketApp(id);
+		List<Ticket> ticket = getTicketApp(id);
 		if (ticket == null) {
 			Query query = em.createQuery("DELETE Applicazione t WHERE t.id = ?1").setParameter(1, id);
 			
@@ -224,20 +220,25 @@ public class Controller {
 			em.getTransaction().commit();
 		}
 		else {
-		ticket.setApplicazione(null);
+			for (Ticket ticket2 : ticket) {
+				ticket2.setApplicazione(null);
+				Query queryT = em.createQuery("DELETE Ticket t WHERE t.id= ?1").setParameter(1, ticket2.getId());
+				int resultT = queryT.executeUpdate();
+			}
+		
 		
 		app.getListaTicket().remove(ticket);
 		Query query = em.createQuery("DELETE Applicazione t WHERE t.id = ?1").setParameter(1, id);
-		Query queryT = em.createQuery("DELETE Ticket t WHERE t.id= ?1").setParameter(1, ticket.getId());
+		
 		
 		int result = query.executeUpdate();
-		int resultT = queryT.executeUpdate();
 		
-		if (result != 0 && resultT !=0 ) {
-			System.out.println("che bello");
-		} else {
-			System.out.println("che brutto");
-		}
+		
+//		if (result != 0 && resultT !=0 ) {
+//			System.out.println("che bello");
+//		} else {
+//			System.out.println("che brutto");
+//		}
 		em.getTransaction().commit();
 	}
 	}
@@ -284,13 +285,25 @@ public class Controller {
 		}
 		return null;
 	}
-
-	public Ticket getTicketApp(long idApp) {
+	
+	
+	public List<Ticket> getListaTicket(Utente utente, long idApp) {
 		Applicazione applicazione = getApplicazione(idApp);
-		Query query = em.createQuery("select t from Ticket t where t.applicazione = ?1", Ticket.class).setParameter(1, applicazione);
+		List<Ticket> query = em.createQuery("select t from Ticket t where t.applicazione = ?1 and t.utente = ?2", Ticket.class).setParameter(1, applicazione).setParameter(2, utente).getResultList();
 		try {
-			Ticket t =  (Ticket) query.getSingleResult();
-			return t;
+			return query;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	
+
+	public List<Ticket> getTicketApp(long idApp) {
+		Applicazione applicazione = getApplicazione(idApp);
+		List<Ticket> query = em.createQuery("select t from Ticket t where t.applicazione = ?1", Ticket.class).setParameter(1, applicazione).getResultList();
+		try {
+			return query;
 		} catch (NoResultException e) {
 			return null;
 		}

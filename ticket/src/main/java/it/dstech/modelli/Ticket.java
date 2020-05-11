@@ -22,7 +22,7 @@ public class Ticket {
 	private String descrizione;
     @Column(columnDefinition ="BOOLEAN NOT NULL")
 	private boolean stato;
-	private String priorità;
+	private String priorita;
 	
 	@CreationTimestamp
     private Timestamp data;
@@ -92,11 +92,11 @@ public class Ticket {
 		this.id = id;
 	}
 
-	public String getPriorità() {
-		return priorità;
+	public String getPriorita() {
+		return priorita;
 	}
 
-	public void setPriorità(String priorità) {
-		this.priorità = priorità;
+	public void setPriorita(String priorita) {
+		this.priorita = priorita;
 	}
 }

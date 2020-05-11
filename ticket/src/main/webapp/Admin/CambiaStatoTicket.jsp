@@ -19,6 +19,7 @@
 
     <% String messaggio = (String) request.getAttribute("messaggio"); 
     String messApp = (String) request.getAttribute("messApp"); 
+    Long nome = (Long) request.getAttribute("nome");
   if (messaggio != null ){
     %>
     <h1>ERRORE</h1>
@@ -33,6 +34,19 @@
     
 <% String path = request.getContextPath();
 %>
+<form action="<%=path%>/Admin/GestioneApplicazione" method="post">
+  <select size="1" class="select" style="width: 25%" name="nome"
+   id="nome">
+
+   <c:forEach items="${listaApplicazioni}" var="lista">
+    <option value="${lista.getId()}">${lista.getNome()}</option>
+   </c:forEach>
+  </select><br>
+  <input type="submit" name="azione" value="Cerca">
+ </form>
+ <% if (nome == null) { %>
+ <h1>Scegli l'applicazione</h1>
+ <% } else { %>
 <h4>Ticket Aperti</h4>
 <hr>
 	<table>
@@ -60,6 +74,8 @@
     					<form action="<%=path%>/Admin/GestioneApplicazione" method="post">
     					<input type="hidden" name ="email" value="${lista.getUtente().getUsername()}">
    					 	<input type="hidden" name ="id" value="${lista.getId()}"><br><br>
+   					 	<input type="hidden" name ="nome" value="${lista.getApplicazione().getId()}"><br><br>
+   					 	
    					 	<input type="submit" name="azione" value="Chiudi Ticket">
 						</form>
 					</td> 
@@ -102,6 +118,7 @@
 		<input type="submit" name="Home" value="Torna Indietro">
 	</form>
 	
+<%}%>
 <%}%>
   </div>
 </body>

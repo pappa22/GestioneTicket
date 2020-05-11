@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import it.dstech.modelli.Ticket;
 import it.dstech.modelli.Utente;
 
 
@@ -29,7 +30,8 @@ public class ModificaTicket extends HttpServlet {
 		String nome =req.getParameter("nome");
 		String descrizione =req.getParameter("descrizione");
 		gestione.modificaTicket(nome,descrizione,id,utente);
-		req.setAttribute("ticket", gestione.getTicket(utente,id));
+		Ticket ticket = gestione.getTicket(utente,id);
+		req.setAttribute("ticket", gestione.getListaTicket(utente, ticket.getApplicazione().getId()));
 		req.getRequestDispatcher("/Utente/GestioneTicket.jsp").forward(req, resp);
 	}
 }

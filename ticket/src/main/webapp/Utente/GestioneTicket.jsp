@@ -1,3 +1,5 @@
+<%@page import="org.apache.taglibs.standard.tag.common.core.ForEachSupport"%>
+<%@page import="java.util.List"%>
 <%@page import="it.dstech.modelli.Ticket"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -17,7 +19,7 @@
 <body>
 <br>
  <%
-  Ticket ticket = (Ticket) request.getAttribute("ticket");
+  List<Ticket> listaTicket = (List<Ticket>) request.getAttribute("ticket");
   String messaggio = (String) request.getAttribute("mess");
  if (messaggio != null) {
  %>
@@ -51,6 +53,10 @@
        </h5></th>
        
        <th><h5>
+        <p class="text-md text-danger">Priorità</p>
+       </h5></th>
+       
+       <th><h5>
         <p class="text-md text-danger">Gestione Ticket</p>
        </h5></th>
        <th><h5>
@@ -58,7 +64,7 @@
        </h5></th>
      </tr>
 
-
+<% for(Ticket ticket : listaTicket) { %>
       <tr>
        <td><h5>
          <p class="text-md text-black">
@@ -98,6 +104,12 @@
           <%=ticket.getApplicazione().getNome() %>
          </p>
         </h5></td>
+        
+        <td><h5>
+         <p class="text-md text-black">
+          <%=ticket.getPriorita() %>
+         </p>
+        </h5></td>
        <td>
 
         <% String path = request.getContextPath(); %>
@@ -124,6 +136,7 @@
 
        </td>
       </tr>
+      <% } %>
 
     </table>
 <br>

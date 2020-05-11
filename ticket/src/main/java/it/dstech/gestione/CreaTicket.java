@@ -32,11 +32,13 @@ public class CreaTicket extends HttpServlet {
 	Applicazione applicazione = gestione.getApplicazione(idApp);
 	String nome =req.getParameter("nome");
 	String descrizione =req.getParameter("descrizione");
+	String priorita = req.getParameter("priorità");
 	Ticket ticket = new Ticket();
 	ticket.setNome(nome);
 	ticket.setDescrizione(descrizione);
 	ticket.setUtente(utente);
     ticket.setStato(true);
+    ticket.setPriorita(priorita);
     ticket.setApplicazione(applicazione);
     gestione.creaTicket(ticket,idApp,utente.getUsername());
 	System.out.println("stampa app"+ applicazione.getListaTicket());

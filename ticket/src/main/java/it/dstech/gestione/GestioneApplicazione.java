@@ -46,6 +46,7 @@ public class GestioneApplicazione extends HttpServlet {
 			req.setAttribute("listaApplicazioni", gestione.stampaListaApplicazioni(admin));
 			req.getRequestDispatcher("/Admin/GestioneApplicazione.jsp").forward(req, resp);
 		} else if(azione.equalsIgnoreCase("Chiudi Ticket")) {
+			long nome = Long.parseLong(req.getParameter("nome"));
 			String email = req.getParameter("email");
 			long idTicket = Long.parseLong(req.getParameter("id"));
 			gestione.chiudiTicket(idTicket);
@@ -56,8 +57,17 @@ public class GestioneApplicazione extends HttpServlet {
 			} catch (MessagingException | IOException e) {
 				e.printStackTrace();
 			}
-			req.setAttribute("listaTicketAttivo", gestione.stampaStatoTicketAttivo(admin));
-			req.setAttribute("listaTicketChiuso", gestione.stampaStatoTicketChiuso(admin));
+			req.setAttribute("listaTicketAttivo", gestione.stampaStatoTicketAttivo(admin, nome));
+			req.setAttribute("listaTicketChiuso", gestione.stampaStatoTicketChiuso(admin, nome));
+			req.setAttribute("listaApplicazioni", gestione.stampaListaApplicazioni(admin));
+			req.setAttribute("nome", nome);
+			req.getRequestDispatcher("/Admin/CambiaStatoTicket.jsp").forward(req, resp);
+		} else if (azione.equalsIgnoreCase("Cerca")) {
+			long nome = Long.parseLong(req.getParameter("nome"));
+			req.setAttribute("listaTicketAttivo", gestione.stampaStatoTicketAttivo(admin, nome));
+			req.setAttribute("listaTicketChiuso", gestione.stampaStatoTicketChiuso(admin, nome));
+			req.setAttribute("listaApplicazioni", gestione.stampaListaApplicazioni(admin));
+			req.setAttribute("nome", nome);
 			req.getRequestDispatcher("/Admin/CambiaStatoTicket.jsp").forward(req, resp);
 		}
 	}

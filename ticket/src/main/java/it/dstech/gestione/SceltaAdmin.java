@@ -29,6 +29,7 @@ public class SceltaAdmin extends HttpServlet {
 		HttpSession session = (HttpSession) req.getSession();
 		Admin admin = (Admin) session.getAttribute("admin");
 		
+		
 		if(scelta == null) {
 			req.getRequestDispatcher("/Admin/ProfiloAdmin.jsp").forward(req, resp);
 		} else if (scelta.equalsIgnoreCase("Aggiungi Applicazione")) {
@@ -38,8 +39,10 @@ public class SceltaAdmin extends HttpServlet {
 			req.setAttribute("listaApplicazioni", gestione.stampaListaApplicazioni(admin));
 			req.getRequestDispatcher("/Admin/GestioneApplicazione.jsp").forward(req, resp);
 		} else if (scelta.equalsIgnoreCase("Gestione Ticket")) {
-			req.setAttribute("listaTicketAttivo", gestione.stampaStatoTicketAttivo(admin));
-			req.setAttribute("listaTicketChiuso", gestione.stampaStatoTicketChiuso(admin));
+//			req.setAttribute("listaTicketAttivo", gestione.stampaStatoTicketAttivo(admin));
+//			req.setAttribute("listaTicketChiuso", gestione.stampaStatoTicketChiuso(admin));
+			req.setAttribute("listaApplicazioni", gestione.stampaListaApplicazioni(admin));
+			req.setAttribute("nome", null);
 			req.getRequestDispatcher("/Admin/CambiaStatoTicket.jsp").forward(req, resp);
 		}	else if (scelta.equalsIgnoreCase("Log out")) {
 			session.invalidate();

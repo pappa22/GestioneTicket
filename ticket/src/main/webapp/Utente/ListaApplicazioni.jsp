@@ -76,12 +76,12 @@
 								<% String path = request.getContextPath(); %>
 	                           <form action="<%=path%>/Utente/SceltaUtente" method="post">
 									
-									<c:if test="${empty app.getListaTicket()}">  
+									
    
 									<input type="submit" class="btn btn-info" name="azione"
 										value="Crea Ticket">
 										
-									</c:if> 
+									
 								
 									<c:if test="${not empty app.getListaTicket()}"> 
 									

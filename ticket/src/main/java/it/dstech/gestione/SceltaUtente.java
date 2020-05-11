@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import it.dstech.modelli.Ticket;
+import it.dstech.modelli.Utente;
+
 
 
 @WebServlet(urlPatterns = "/Utente/SceltaUtente")
@@ -45,7 +48,8 @@ public class SceltaUtente extends HttpServlet {
 		
 		else if (scelta.equalsIgnoreCase("Gestione Ticket")) {
 			System.out.println("//////////////"+idApp);
-			req.setAttribute("ticket", gestione.getTicketApp(idApp));
+			Utente utente =	(Utente) session.getAttribute("utente");
+			req.setAttribute("ticket", gestione.getListaTicket(utente, idApp));
 			req.setAttribute("idApp", idApp);
 			req.getRequestDispatcher("/Utente/GestioneTicket.jsp").forward(req, resp);
 		} 
