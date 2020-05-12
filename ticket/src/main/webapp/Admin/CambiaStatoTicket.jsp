@@ -55,7 +55,8 @@
 		<%
 			if (nome == null) {
 		%>
-		<h1>Scegli l'applicazione</h1>
+		<br>
+		<h3>Scegli l'applicazione</h3>
 		<%
 			} else {
 		%>
@@ -159,7 +160,7 @@
 		%>
 		<br>
 		<form action="indietro" method="post">
-			<input type="submit" class="btn btn-primary btn-block" name="Home" value="Torna Indietro">
+			<input type="submit" class="btn btn-primary btn-md" name="Home" value="Torna Indietro">
 		</form>
 	</div>
 </body>

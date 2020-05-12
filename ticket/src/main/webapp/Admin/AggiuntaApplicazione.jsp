@@ -8,25 +8,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
 <meta charset="UTF-8">
 <title>Aggiunta Applicazione</title>
 </head>
 <body>
 
 <% String path = request.getContextPath(); %>
+<br><br>
+<div class="container center_div">
 <form action="<%=path%>/Admin/AggiuntaApplicazione" method="post">
-		<input type="text" name="nome" placeholder="Nome"> <br> 
-		
-		<input type="text" name="descrizione" placeholder="Descrizione">
+ <div class="form-group">
+  <div class="col-xs-2">
+		<input type="text" name="nome" class="form-control" id="ex2" placeholder="Nome"> <br> 
+		<input type="text" class="form-control" id="ex2"  name="descrizione" placeholder="Descrizione">
+	</div>
 		<br>
-		<button type="submit" class="pulsante">Aggiungi</button>
+		<button type="submit" class="btn btn-primary btn-md">Aggiungi</button>
+    </div>
 		<br>
 	</form>
 	<form action="indietro" method="post">
-		<input type="submit" name="Home" value="Torna Indietro">
+		<input type="submit" class="btn btn-primary btn-md" name="Home" value="Torna Indietro">
 	</form>
+	</div>
 	<hr>
-	<table>
+	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>Nome</th>

@@ -6,10 +6,11 @@
   pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<link href="css/Default.css" rel="stylesheet" type="text/css">
-<link href="css/text.css" rel="stylesheet" type="text/css">
-<link href="css/table.css" rel="stylesheet" type="text/css">
 <head>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
 <meta charset="ISO-8859-1">
 <title>Gestione Applicazione</title>
 </head>
@@ -33,7 +34,7 @@
     
 <% String path = request.getContextPath(); %>
 <hr>
-	<table>
+	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>Nome</th>
@@ -47,9 +48,9 @@
  					<td><c:out value="${lista.getDescrizione()}" /></td>
  					<td>
     					<form action="GestioneApplicazione" method="post">
+   					 	<input type="submit" class="btn btn-primary btn-sm" name="azione" value="Modifica">
+    					<input type="submit" class="btn btn-primary btn-sm" name="azione" value="Rimuovi">
    					 	<input type="hidden" name ="id" value="${lista.getId()}"><br><br>
-   					 	<input type="submit" name="azione" value="Modifica">
-    					<input type="submit" name="azione" value="Rimuovi">
 						</form>
 					</td> 
 				</tr>
@@ -57,10 +58,9 @@
 		</tbody>
 	</table>
 	<hr>
-  <td>
 
 	<form action="indietro" method="post">
-		<input type="submit" name="Home" value="Torna Indietro">
+		<input type="submit" class="btn btn-primary btn-md" name="Home" value="Torna Indietro">
 	</form>
 	
 <%}%>
