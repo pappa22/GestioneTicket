@@ -40,11 +40,11 @@
 		<h5>
 			<p class="text-xl text-black">Priorità</p>
 		</h5>
-		<select name="priorità">
+		<select name="priorita">
 
-			<option value="bassa">Bassa</option>
-			<option value="media">Media</option>
-			<option value="alta">Alta</option>
+			<option value="1">Bassa</option>
+			<option value="2">Media</option>
+			<option value="3">Alta</option>
 
 		</select> <br>
 		<button type="submit" class="pulsante">Aggiungi</button>

@@ -176,24 +176,28 @@ public class Controller {
 		TypedQuery<Applicazione> query = em.createQuery("select a from Applicazione a", Applicazione.class);
 		return query.getResultList();
 	}
-	
+
 	public List<Ticket> stampaStatoTicketAttivo(Admin admin, long id) {
 		List<Ticket> lista = new ArrayList<>();
 		Admin ad = em.find(Admin.class, admin.getMail());
 		Applicazione app = getApplicazione(id);
-		List<Ticket> query = em.createQuery("select t from Ticket t where t.applicazione = ?1 and t.stato = true", Ticket.class).setParameter(1, app).getResultList();
+		List<Ticket> query = em
+				.createQuery("select t from Ticket t where t.applicazione = ?1 and t.stato = true ORDER BY t.priorita DESC", Ticket.class)
+				.setParameter(1, app).getResultList();
 		try {
 			return query;
 		} catch (NoResultException e) {
 			return null;
 		}
 	}
-	
+
 	public List<Ticket> stampaStatoTicketChiuso(Admin admin, long id) {
 		List<Ticket> lista = new ArrayList<>();
 		Admin ad = em.find(Admin.class, admin.getMail());
 		Applicazione app = getApplicazione(id);
-		List<Ticket> query = em.createQuery("select t from Ticket t where t.applicazione = ?1 and t.stato = false", Ticket.class).setParameter(1, app).getResultList();
+		List<Ticket> query = em
+				.createQuery("select t from Ticket t where t.applicazione = ?1 and t.stato = false", Ticket.class)
+				.setParameter(1, app).getResultList();
 		try {
 			return query;
 		} catch (NoResultException e) {
@@ -208,39 +212,34 @@ public class Controller {
 		List<Ticket> ticket = getTicketApp(id);
 		if (ticket == null) {
 			Query query = em.createQuery("DELETE Applicazione t WHERE t.id = ?1").setParameter(1, id);
-			
+
 			int result = query.executeUpdate();
-			
-			
-			if (result != 0 ) {
+
+			if (result != 0) {
 				System.out.println("che bello");
 			} else {
 				System.out.println("che brutto");
 			}
 			em.getTransaction().commit();
-		}
-		else {
+		} else {
 			for (Ticket ticket2 : ticket) {
 				ticket2.setApplicazione(null);
 				Query queryT = em.createQuery("DELETE Ticket t WHERE t.id= ?1").setParameter(1, ticket2.getId());
 				int resultT = queryT.executeUpdate();
 			}
-		
-		
-		app.getListaTicket().remove(ticket);
-		Query query = em.createQuery("DELETE Applicazione t WHERE t.id = ?1").setParameter(1, id);
-		
-		
-		int result = query.executeUpdate();
-		
-		
+
+			app.getListaTicket().remove(ticket);
+			Query query = em.createQuery("DELETE Applicazione t WHERE t.id = ?1").setParameter(1, id);
+
+			int result = query.executeUpdate();
+
 //		if (result != 0 && resultT !=0 ) {
 //			System.out.println("che bello");
 //		} else {
 //			System.out.println("che brutto");
 //		}
-		em.getTransaction().commit();
-	}
+			em.getTransaction().commit();
+		}
 	}
 
 	public void aggiungiApplicazione(String nome, String descrizione, Admin admin) {
@@ -273,7 +272,6 @@ public class Controller {
 		em.persist(app);
 		em.persist(utente);
 		em.getTransaction().commit();
-
 	}
 
 	public Ticket getTicket(Utente utente, long idTicket) {
@@ -285,23 +283,23 @@ public class Controller {
 		}
 		return null;
 	}
-	
-	
+
 	public List<Ticket> getListaTicket(Utente utente, long idApp) {
 		Applicazione applicazione = getApplicazione(idApp);
-		List<Ticket> query = em.createQuery("select t from Ticket t where t.applicazione = ?1 and t.utente = ?2", Ticket.class).setParameter(1, applicazione).setParameter(2, utente).getResultList();
+		List<Ticket> query = em
+				.createQuery("select t from Ticket t where t.applicazione = ?1 and t.utente = ?2", Ticket.class)
+				.setParameter(1, applicazione).setParameter(2, utente).getResultList();
 		try {
 			return query;
 		} catch (NoResultException e) {
 			return null;
 		}
 	}
-	
-	
 
 	public List<Ticket> getTicketApp(long idApp) {
 		Applicazione applicazione = getApplicazione(idApp);
-		List<Ticket> query = em.createQuery("select t from Ticket t where t.applicazione = ?1", Ticket.class).setParameter(1, applicazione).getResultList();
+		List<Ticket> query = em.createQuery("select t from Ticket t where t.applicazione = ?1", Ticket.class)
+				.setParameter(1, applicazione).getResultList();
 		try {
 			return query;
 		} catch (NoResultException e) {
@@ -309,11 +307,12 @@ public class Controller {
 		}
 	}
 
-	public void modificaTicket(String nome, String descrizione, long id, Utente utente) {
+	public void modificaTicket(String nome, String descrizione, long id, Utente utente, String priorita) {
 		Ticket ticket = getTicket(utente, id);
 		em.getTransaction().begin();
 		ticket.setNome(nome);
 		ticket.setDescrizione(descrizione);
+		ticket.setPriorita(priorita);
 		em.getTransaction().commit();
 	}
 
@@ -352,5 +351,5 @@ public class Controller {
 		ticket.setStato(false);
 		em.getTransaction().commit();
 	}
-	
+
 }

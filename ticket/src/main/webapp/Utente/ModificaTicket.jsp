@@ -34,6 +34,13 @@
 	<form action="<%=path%>/Utente/ModificaTicket" method="post">
 <input type="hidden" id="id" name="idTicket" value="<c:out value='${ticket.getId()}'></c:out>" />
 		<input type="text" name="nome"  value="<c:out value="${ticket.getNome()}" />"> <br> 
+		<select name="priorita">
+
+			<option value="1">Bassa</option>
+			<option value="2">Media</option>
+			<option value="3">Alta</option>
+
+		</select> <br>
 		<input type="text" name="descrizione"  value="<c:out value="${ticket.getDescrizione()}"/>"> <br> 
 		<br>
 		<button type="submit" class="pulsante">Modifica</button>

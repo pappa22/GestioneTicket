@@ -32,7 +32,7 @@ public class CreaTicket extends HttpServlet {
 	Applicazione applicazione = gestione.getApplicazione(idApp);
 	String nome =req.getParameter("nome");
 	String descrizione =req.getParameter("descrizione");
-	String priorita = req.getParameter("priorità");
+	String priorita = req.getParameter("priorita");
 	Ticket ticket = new Ticket();
 	ticket.setNome(nome);
 	ticket.setDescrizione(descrizione);
