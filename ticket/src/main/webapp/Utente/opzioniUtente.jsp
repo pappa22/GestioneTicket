@@ -13,8 +13,6 @@
 <title>Profilo Utente</title>
 </head>
 <body>
-  
-  
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="#page-top">Gestione Ticket</a>
@@ -47,13 +45,13 @@
   <section id="about">
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 mx-auto">
+        <div class="col-lg-12 text-center">
           <h2>Gestione Ticket</h2>
           <p class="lead"></p>
 	 <% String path = request.getContextPath(); %> 
     <form action="<%=path%>/Utente/SceltaUtente" method="post">
-      <input type="submit"  class = "button" name ="azione" value="Lista Applicazioni" /> <br><br>
-      <input type="submit"  class = "button" name ="azione" value="Log Out" /> <br><br>
+      <input type="submit"  class = "btn btn-outline-primary btn-lg" name ="azione" value="Lista Applicazioni" /> <br><br>
+      <input type="submit"  class = "btn btn-outline-secondary btn-lg" name ="azione" value="Log Out" /> <br><br>
     </form>        
         </div>
       </div>
@@ -62,47 +60,8 @@
   <% } %>
   <footer class="py-5 bg-dark">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright © </p>
+    <p class="m-0 text-center text-white">Copyright © Gruppo 2 2020</p>
     </div>
-    <!-- /.container -->
   </footer>
-
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Plugin JavaScript -->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom JavaScript for this theme -->
-  <script src="js/scrolling-nav.js"></script>
-  
-  
-  
 </body>
 </html>
-<!-- <div class="container"> -->
-<!-- 			<div class="row"> -->
-<!-- 				<div class="col-xl align-self-center "> -->
-<%--     <% String messaggio = (String) request.getAttribute("mess"); 
-//     	Utente u = (Utente) session.getAttribute("utente");
-    
-//   if (messaggio != null ){
-<%--     %> --%>
-<!--     <h1 style="color:Tomato;">ERRORE</h1> -->
-<%--     <%=messaggio%> --%>
-<%--     <% } 
-//   else {
-<%-- %> --%>
-<%--       <h1>Benvenuto/a <%=u.getNome()%></h1> --%>
-<!--  <br> -->
-<%-- <img alt="image" style="vertical-align: middle; width: 150px; height: 150px; border-radius: 50%;" src="data:image/jpg;base64, <%= u.getImage() %>"> <br> --%>
-<!--       <br>Qui puoi recensire le nostre applicazioni.<br> -->
-<!-- <br> -->
-<%-- <% String path = request.getContextPath(); %> --%>
-<%--     <form action="<%=path%>/Utente/SceltaUtente" method="post"> --%>
-<!--       <input type="submit"  class = "button" name ="azione" value="Lista Applicazioni" /> <br><br> -->
-<!--       <input type="submit"  class = "button" name ="azione" value="Log Out" /> <br><br> -->
-<!--     </form> -->
-<%-- <%--     <% } %> --%> 
-<!--   </div></div></div> -->

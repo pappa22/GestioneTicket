@@ -66,7 +66,7 @@
   <% } %>
   <footer class="py-5 bg-dark">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright © </p>
+      <p class="m-0 text-center text-white">Copyright © Gruppo 2 2020</p>
     </div>
     <!-- /.container -->
   </footer>
