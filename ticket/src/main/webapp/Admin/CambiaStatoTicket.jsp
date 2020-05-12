@@ -6,6 +6,10 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
 <link href="css/Default.css" rel="stylesheet" type="text/css">
 <link href="css/text.css" rel="stylesheet" type="text/css">
 <link href="css/table.css" rel="stylesheet" type="text/css">
@@ -57,7 +61,7 @@
 		%>
 		<h4>Ticket Aperti</h4>
 		<hr>
-		<table>
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>Nome</th>
@@ -108,7 +112,7 @@
 
 		<h4>Ticket Chiusi</h4>
 		<hr>
-		<table>
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>Nome</th>
@@ -145,9 +149,7 @@
 		</table>
 		<hr>
 
-		<form action="indietro" method="post">
-			<input type="submit" name="Home" value="Torna Indietro">
-		</form>
+		
 
 		<%
 			}
@@ -155,6 +157,10 @@
 		<%
 			}
 		%>
+		<br>
+		<form action="indietro" method="post">
+			<input type="submit" class="btn btn-primary btn-block" name="Home" value="Torna Indietro">
+		</form>
 	</div>
 </body>
 </html>

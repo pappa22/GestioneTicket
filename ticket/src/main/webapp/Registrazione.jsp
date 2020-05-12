@@ -2,6 +2,10 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
 <head>
 <meta charset="ISO-8859-1">
 <title>Registrazione</title>
@@ -24,35 +28,35 @@
 		
 		
 		
-			<h4><p class="text-xl-center text-warning">Nome</p></h4>
+			<h4><p class="text-xl-center text-black">Nome</p></h4>
 <input type="text" required="required" class="form-control" id="nome" name="nome" style="width: 250px; height: 50px; margin: auto"
 				placeholder="Nome">
 		<br>
 		
 		
-			<h4><p class="text-xl-center text-warning">Cognome</p></h4>
+			<h4><p class="text-xl-center text-black">Cognome</p></h4>
 			<input type="text" required="required" class="form-control" id="cognome"
 				name="cognome" style="width: 250px; height: 50px; margin: auto"
 				placeholder="Cognome">
 		<br>
 
-			<h4><p class="text-xl-center text-warning">Mail</p></h4>
+			<h4><p class="text-xl-center text-black">Mail</p></h4>
 			<input type="text" required="required" class="form-control" id="mail" name="mail"
 				style="width: 250px; height: 50px; margin: auto" placeholder="Mail">
 	
 		<br>
 		
-			<h4><p class="text-xl-center text-warning">Password</p></h4>
+			<h4><p class="text-xl-center text-black">Password</p></h4>
 			<input type="password" required="required" class="form-control" id="password"
 				name="password" style="width: 250px; height: 50px; margin: auto"
 				placeholder="Password">
 		<br>
-		<h4><p class="text-xl-center text-warning">Immagine</p></h4>
+		<h4><p class="text-xl-center text-black">Immagine</p></h4>
 		<p class="text-xl-center"> 
 		<input type="file" required="required"  id="image" name="image" placeholder="Inserisci immagine profilo">
         </p><br> 
  
-		<input type="submit" class="btn btn-warning btn-block"
+		<input type="submit" class="btn btn-danger btn-block"
 			style="width: 150px; height: 45px; margin: auto" name="azione"
 			value="Registrati">
 	</form>
