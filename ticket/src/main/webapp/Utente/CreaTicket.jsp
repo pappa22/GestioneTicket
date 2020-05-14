@@ -46,7 +46,7 @@
 			<option value="2">Media</option>
 			<option value="3">Alta</option>
 
-		</select> <br>
+		</select> <br><br>
 		<button type="submit" class="pulsante">Aggiungi</button>
 		<br>
 	</form>

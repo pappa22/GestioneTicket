@@ -43,6 +43,7 @@
 		<%
 			String path = request.getContextPath();
 		%>
+		<br>
 		<form action="<%=path%>/Admin/GestioneApplicazione" method="post">
 			<select size="1" class="select" style="width: 25%" name="nome"
 				id="nome">
@@ -50,7 +51,8 @@
 				<c:forEach items="${listaApplicazioni}" var="lista">
 					<option value="${lista.getId()}">${lista.getNome()}</option>
 				</c:forEach>
-			</select><br> <input type="submit" name="azione" value="Cerca">
+				
+			</select><br><br> <input type="submit" name="azione" value="Cerca">
 		</form>
 		<%
 			if (nome == null) {
@@ -101,7 +103,7 @@
 									type="hidden" name="id" value="${lista.getId()}"><br>
 								<br> <input type="hidden" name="nome"
 									value="${lista.getApplicazione().getId()}"><br>
-								<br> <input type="submit" name="azione"
+								<br> <input type="submit" name="azione" class="btn btn-info"
 									value="Chiudi Ticket">
 							</form>
 						</td>
